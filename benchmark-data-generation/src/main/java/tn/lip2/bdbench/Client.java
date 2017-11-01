@@ -20,26 +20,26 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 /**
- * A thread to periodically show the status of the experiment to reassure you that progress is being made.
+ * A thread to periodically show the status of the experiment to reassure you that progress is being  made.
  */
-class StatusThread extends Thread {
-  // Counts down each of the clients completing
-  private final CountDownLatch completeLatch;
+  class StatusThread extends Thread {
+    // Counts down each of the clients completing
+    private final CountDownLatch completeLatch;
 
-  // Stores the measurements for the run
-  private final Measurements measurements;
+    // Stores the measurements for the run
+    private final Measurements measurements;
 
-  // Whether or not to track the JVM stats per run
-  private final boolean trackJVMStats;
+    // Whether or not to track the JVM stats per run
+    private final boolean trackJVMStats;
 
-  // The clients that are running.
-  private final List<ClientThread> clients;
+    // The clients that are running.
+    private final List<ClientThread> clients;
 
-  private final String label;
-  private final boolean standardstatus;
+    private final String label;
+    private final boolean standardstatus;
 
-  // The interval for reporting status.
-  private long sleeptimeNs;
+    // The interval for reporting status.
+    private long sleeptimeNs;
 
   // JVM max/mins
   private int maxThreads;

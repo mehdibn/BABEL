@@ -66,6 +66,7 @@
     <modules>
         <module>benchmark-core</module>
         <module>benchmark-integration</module>
+        <module>benchmark-data-generation</module>
     </modules>
 
 </project>
