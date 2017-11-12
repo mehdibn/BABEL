@@ -34,6 +34,8 @@
 
 <b>-p name=value</b>    :  specify a property to be passed to the DB and workloads; multiple properties can be specified, and override any values in the propertyfile
 
+<b>-id injectorID</b>   :  use an Id by Injector (default value : default)
+
 
 ### Properties
 
