@@ -18,24 +18,34 @@
 
 ### Options 
 
--help            : show Help
+<b>-help</b>            : show Help
 
--s               : show stats during run (default: no stats)
+<b>-s</b>               : show stats during run (default: no stats)
 
--threads n       : execute using n threads (default: 1)
+<b>-threads n</b>       : execute using n threads (default: 1)
 
--db dbname       : specify the name of the DB to use (default: tn.lip2.bdbench.BasicDB)
+<b>-db dbname</b>       : specify the name of the DB to use (default: tn.lip2.bdbench.BasicDB)
 
--target n        : attempt to do n operations per second (default: unlimited)
+<b>-target n</b>        : attempt to do n operations per second (default: unlimited)
 
--l label         : use label for stats (one label per bath stats)
+<b>-l label</b>         : use label for stats (one label per bath stats)
 
--P PropertyFile  : load properties from the given file. Multiple files can be specified, and will be processed in the order specified
+<b>-P PropertyFile</b>  : load properties from the given file. Multiple files can be specified, and will be processed in the order specified
 
--p name=value    :  specify a property to be passed to the DB and workloads; multiple properties can be specified, and override any values in the propertyfile
+<b>-p name=value</b>    :  specify a property to be passed to the DB and workloads; multiple properties can be specified, and override any values in the propertyfile
 
 
 ### Properties
+
+<b>exportfile</b>       : path to a file where output should be written instead of to stdout (default: undefined/write to stdout)
+
+<b>fieldcount</b>       : the number of fields in a record (default: 10)
+
+<b>fieldlength</b>      : the size of each field (default: 100)
+
+<b>recordcount</b>      : number of records to load into the database initially (default: 0)
+
+<b>maxexecutiontime</b> : maximum execution time in seconds. The benchmark runs until either the operation count has exhausted or the maximum specified time has elapsed, whichever is earlier
 
 
 
