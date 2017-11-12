@@ -1,12 +1,21 @@
 # BDBench Data Generator
 
-## to build this project :
+## To build this project :
 
 `mvn compile package`
 
-## to generate Data :
+## To generate Data :
 
 `java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client 
 
-## more details in this command :
+## More details in this command :
+
 `java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -s | grep -v user`
+
+## Benchmark Options :
+
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -help`
+
+### Options 
+-s : 
+
