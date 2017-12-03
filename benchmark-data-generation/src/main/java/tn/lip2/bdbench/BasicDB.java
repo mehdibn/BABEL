@@ -230,7 +230,7 @@ public class BasicDB extends DB {
             }
 
             sb.append("]");
-            System.out.println(sb+"\n");
+            System.out.println(sb);
         }
 
         if (count) {

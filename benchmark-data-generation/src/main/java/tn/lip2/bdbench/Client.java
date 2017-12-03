@@ -755,7 +755,7 @@ public final class Client {
             if (props.getProperty(Measurements.MEASUREMENT_TYPE_PROPERTY, "").compareTo("timeseries") == 0) {
                 standardstatus = true;
             }
-            int statusIntervalSeconds = Integer.parseInt(props.getProperty("status.interval", "10"));
+            int statusIntervalSeconds = Integer.parseInt(props.getProperty("status.interval", "1"));
             boolean trackJVMStats = props.getProperty(Measurements.MEASUREMENT_TRACK_JVM_PROPERTY,
                     Measurements.MEASUREMENT_TRACK_JVM_PROPERTY_DEFAULT).equals("true");
             statusthread = new StatusThread(completeLatch, clients, label, standardstatus, statusIntervalSeconds,
@@ -968,6 +968,8 @@ public final class Client {
         props.setProperty(WORKLOAD_PROPERTY, CoreWorkload.class.getName());
         props.setProperty(DO_TRANSACTIONS_PROPERTY, "false");
         props.setProperty(INJECTOR_ID, "default");
+        props.setProperty(Measurements.MEASUREMENT_TYPE_PROPERTY, "raw");
+        props.setProperty(STATUS_PROPERTY,"true");
 
         System.err.print("Command line:");
         for (String arg : args) {
