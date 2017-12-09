@@ -6,11 +6,11 @@
 
 ## To generate Data :
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client 
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client `
 
 ## Example of a Multi-threaded Injection with Stats :
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -s | grep -v user`
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -P ./conf/bdbench.properties -s | grep -v user`
 
 ## Benchmark Generator Options :
 
@@ -49,6 +49,9 @@
 
 <b>maxexecutiontime</b> : maximum execution time in seconds. The benchmark runs until either the operation count has exhausted or the maximum specified time has elapsed, whichever is earlier
 
+<b>kafkabrokers/b>      : list of kafka brokers for metrics integration
+
+<b>kafkatopic</b>       : kafka topic for metrics integration
 
 
 ### Used Kafka Commands
