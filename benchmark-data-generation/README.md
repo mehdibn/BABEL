@@ -49,7 +49,7 @@
 
 <b>maxexecutiontime</b> : maximum execution time in seconds. The benchmark runs until either the operation count has exhausted or the maximum specified time has elapsed, whichever is earlier
 
-<b>kafkabrokers/b>      : list of kafka brokers for metrics integration
+<b>kafkabrokers</b>      : list of kafka brokers for metrics integration
 
 <b>kafkatopic</b>       : kafka topic for metrics integration
 
@@ -60,7 +60,7 @@
 /usr/local/bin/zookeeper-server-start /usr/local/etc/zookeeper/zoo.cfg > /tmp/zookeeper.out 2> /tmp/zookeeper.log &
 /usr/local/bin/kafka-server-start /usr/local/etc/kafka/server.properties > /tmp/kafka.out 2> /tmp/kafka.log &
 /usr/local/bin/kafka-topics --zookeeper localhost:2181 --describe
-/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic bdbench --replication-factor 1 --partitions 1
+__/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic bdbench --replication-factor 1 --partitions 1__
 /usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic bdbench --from-beginning  --property print.key=true --property print.timestamp=true
 /usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic bdbench
 `
