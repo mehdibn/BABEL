@@ -7,6 +7,7 @@ import org.apache.htrace.core.HTraceConfiguration;
 import org.apache.htrace.core.TraceScope;
 import org.apache.htrace.core.Tracer;
 import tn.lip2.bdbench.workloads.CoreWorkload;
+import tn.lip2.core.KafkaInjector;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -51,6 +52,7 @@ class StatusThread extends Thread {
     private double minLoadAvg = Double.MAX_VALUE;
     private long lastGCCount = 0;
     private long lastGCTime = 0;
+
 
     /**
      * Creates a new StatusThread without JVM stat tracking.
@@ -172,9 +174,15 @@ class StatusThread extends Thread {
         msg.append(Measurements.getMeasurements().getSummary());
 
         System.err.println(msg);
+        if (Client.kakfaInjector != null) {
+            Client.kakfaInjector.sendMessage(msg.toString());
+        }
 
         if (standardstatus) {
             System.out.println(msg);
+            if (Client.kakfaInjector != null) {
+                Client.kakfaInjector.sendMessage(msg.toString());
+            }
         }
         return totalops;
     }
@@ -586,9 +594,24 @@ public final class Client {
     public static final String LABEL_PROPERTY = "label";
 
     /**
+     * Use label for status (e.g. to label one experiment out of a whole batch).
+     */
+    public static final String KAFKA_BROKERS = "kafkabrokers";
+
+    /**
+     * Use label for status (e.g. to label one experiment out of a whole batch).
+     */
+    public static final String KAFKA_TOPIC = "kafkatopic";
+
+    /**
      * An optional thread used to track progress and measure JVM stats.
      */
     private static StatusThread statusthread = null;
+
+    /**
+     * Kafka Injector Init.
+     */
+    public static KafkaInjector kakfaInjector;
 
     // HTrace integration related constants.
 
@@ -707,6 +730,9 @@ public final class Client {
         } finally {
             if (exporter != null) {
                 exporter.close();
+                if (kakfaInjector != null) {
+                    kakfaInjector.closeOutput();
+                }
             }
         }
     }
@@ -714,6 +740,10 @@ public final class Client {
     @SuppressWarnings("unchecked")
     public static void main(String[] args) {
         Properties props = parseArguments(args);
+
+        if ((props.getProperty(KAFKA_BROKERS) != null) && (props.getProperty(KAFKA_TOPIC) != null)) {
+            kakfaInjector = new KafkaInjector(props.getProperty(KAFKA_BROKERS), props.getProperty(KAFKA_TOPIC));
+        }
 
         boolean status = Boolean.valueOf(props.getProperty(STATUS_PROPERTY, String.valueOf(false)));
         String label = props.getProperty(LABEL_PROPERTY, "");
@@ -969,7 +999,7 @@ public final class Client {
         props.setProperty(DO_TRANSACTIONS_PROPERTY, "false");
         props.setProperty(INJECTOR_ID, "default");
         props.setProperty(Measurements.MEASUREMENT_TYPE_PROPERTY, "raw");
-        props.setProperty(STATUS_PROPERTY,"true");
+        props.setProperty(STATUS_PROPERTY, "true");
 
         System.err.print("Command line:");
         for (String arg : args) {
@@ -1025,7 +1055,7 @@ public final class Client {
                     }
                     props.setProperty(DB_PROPERTY, args[argindex]);
                     argindex++;
-                }else if (args[argindex].compareTo("-id") == 0) {
+                } else if (args[argindex].compareTo("-id") == 0) {
                     argindex++;
                     if (argindex >= args.length) {
                         usageMessage();
