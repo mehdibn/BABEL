@@ -49,5 +49,8 @@
 
 <b>maxexecutiontime</b> : maximum execution time in seconds. The benchmark runs until either the operation count has exhausted or the maximum specified time has elapsed, whichever is earlier
 
+<b>kafkabrokers/b>      : list of kafka brokers for metrics integration
+
+<b>kafkatopic</b>       : kafka topic for metrics integration
 
 
