@@ -56,13 +56,13 @@
 
 ### Used Kafka Commands
 
-`
-/usr/local/bin/zookeeper-server-start /usr/local/etc/zookeeper/zoo.cfg > /tmp/zookeeper.out 2> /tmp/zookeeper.log &
-/usr/local/bin/kafka-server-start /usr/local/etc/kafka/server.properties > /tmp/kafka.out 2> /tmp/kafka.log &
-/usr/local/bin/kafka-topics --zookeeper localhost:2181 --describe
-__/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic bdbench --replication-factor 1 --partitions 1__
-/usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic bdbench --from-beginning  --property print.key=true --property print.timestamp=true
-/usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic bdbench
+
+`/usr/local/bin/zookeeper-server-start /usr/local/etc/zookeeper/zoo.cfg > /tmp/zookeeper.out 2> /tmp/zookeeper.log &`
+`/usr/local/bin/kafka-server-start /usr/local/etc/kafka/server.properties > /tmp/kafka.out 2> /tmp/kafka.log &`
+`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --describe`
+`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic bdbench --replication-factor 1 --partitions 1`
+`/usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic bdbench --from-beginning  --property print.key=true --property print.timestamp=true`
+`/usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic bdbench`
 `
 
 ### BDBench Test Command
