@@ -1,4 +1,9 @@
-package tn.lip2.bdbench;
+package tn.lip2.integration.producers;
+
+import tn.lip2.bdbench.ByteIterator;
+import tn.lip2.bdbench.Status;
+import tn.lip2.bdbench.Utils;
+import tn.lip2.bdbench.adapters.GenericProducer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +18,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import static java.util.concurrent.TimeUnit.MICROSECONDS;
 
 /**
- * Basic DB that just prints out the requested operations, instead of doing them against a database.
+ * Basic GenericProducer that just prints out the requested operations, instead of doing them against a database.
  */
-public class GoodBadUglyDB extends DB {
+public class GoodBadUglyDB extends GenericProducer {
   public static final String SIMULATE_DELAY = "gbudb.delays";
   public static final String SIMULATE_DELAY_DEFAULT = "200,1000,10000,50000,100000";
   private static final ReadWriteLock DB_ACCESS = new ReentrantReadWriteLock();
@@ -59,7 +64,7 @@ public class GoodBadUglyDB extends DB {
   }
 
   /**
-   * Initialize any state for this DB. Called once per DB instance; there is one DB instance per client thread.
+   * Initialize any state for this GenericProducer. Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
    */
   public void init() {
     int i = 0;

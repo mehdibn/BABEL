@@ -1,5 +1,6 @@
 package tn.lip2.bdbench;
 
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.workloads.CoreWorkload;
 
 import java.io.BufferedReader;
@@ -9,14 +10,14 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 /**
- * A simple command line client to a database, using the appropriate tn.lip2.bdbench.DB implementation.
+ * A simple command line client to a database, using the appropriate tn.lip2.bdbench.adapters.GenericProducer implementation.
  */
 public final class CommandLine {
   private CommandLine() {
     //not used
   }
 
-  public static final String DEFAULT_DB = "tn.lip2.bdbench.BasicDB";
+  public static final String DEFAULT_DB = "tn.lip2.integration.producers.BasicDB";
 
   public static void usageMessage() {
     System.out.println("BDBench Command Line Client");
@@ -24,7 +25,7 @@ public final class CommandLine {
     System.out.println("Options:");
     System.out.println("  -P filename: Specify a property file");
     System.out.println("  -p name=value: Specify a property value");
-    System.out.println("  -db classname: Use a specified DB class (can also set the \"db\" property)");
+    System.out.println("  -db classname: Use a specified GenericProducer class (can also set the \"db\" property)");
     System.out.println("  -table tablename: Use the table name instead of the default \"" +
         CoreWorkload.TABLENAME_PROPERTY_DEFAULT + "\"");
     System.out.println();
@@ -62,24 +63,24 @@ public final class CommandLine {
 
     String table = props.getProperty(CoreWorkload.TABLENAME_PROPERTY, CoreWorkload.TABLENAME_PROPERTY_DEFAULT);
 
-    //create a DB
+    //create a GenericProducer
     String dbname = props.getProperty(Client.DB_PROPERTY, DEFAULT_DB);
 
     ClassLoader classLoader = CommandLine.class.getClassLoader();
 
-    DB db = null;
+    GenericProducer producer = null;
 
     try {
       Class dbclass = classLoader.loadClass(dbname);
-      db = (DB) dbclass.newInstance();
+      producer = (GenericProducer) dbclass.newInstance();
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(0);
     }
 
-    db.setProperties(props);
+    producer.setProperties(props);
     try {
-      db.init();
+      producer.init();
     } catch (DBException e) {
       e.printStackTrace();
       System.exit(0);
@@ -123,15 +124,15 @@ public final class CommandLine {
       if (tokens[0].compareTo("table") == 0) {
         handleTable(tokens, table);
       } else if (tokens[0].compareTo("read") == 0) {
-        handleRead(tokens, table, db);
+        handleRead(tokens, table, producer);
       } else if (tokens[0].compareTo("scan") == 0) {
-        handleScan(tokens, table, db);
+        handleScan(tokens, table, producer);
       } else if (tokens[0].compareTo("update") == 0) {
-        handleUpdate(tokens, table, db);
+        handleUpdate(tokens, table, producer);
       } else if (tokens[0].compareTo("insert") == 0) {
-        handleInsert(tokens, table, db);
+        handleInsert(tokens, table, producer);
       } else if (tokens[0].compareTo("delete") == 0) {
-        handleDelete(tokens, table, db);
+        handleDelete(tokens, table, producer);
       } else {
         System.out.println("Error: unknown command \"" + tokens[0] + "\"");
       }
@@ -224,16 +225,16 @@ public final class CommandLine {
     }
   }
 
-  private static void handleDelete(String[] tokens, String table, DB db) {
+  private static void handleDelete(String[] tokens, String table, GenericProducer producer) {
     if (tokens.length != 2) {
       System.out.println("Error: syntax is \"delete keyname\"");
     } else {
-      Status ret = db.delete(table, tokens[1]);
+      Status ret = producer.delete(table, tokens[1]);
       System.out.println("Return result: " + ret.getName());
     }
   }
 
-  private static void handleInsert(String[] tokens, String table, DB db) {
+  private static void handleInsert(String[] tokens, String table, GenericProducer producer) {
     if (tokens.length < 3) {
       System.out.println("Error: syntax is \"insert keyname name1=value1 [name2=value2 ...]\"");
     } else {
@@ -244,12 +245,12 @@ public final class CommandLine {
         values.put(nv[0], new StringByteIterator(nv[1]));
       }
 
-      Status ret = db.insert(table, tokens[1], values);
+      Status ret = producer.insert(table, tokens[1], values);
       System.out.println("Result: " + ret.getName());
     }
   }
 
-  private static void handleUpdate(String[] tokens, String table, DB db) {
+  private static void handleUpdate(String[] tokens, String table, GenericProducer producer) {
     if (tokens.length < 3) {
       System.out.println("Error: syntax is \"update keyname name1=value1 [name2=value2 ...]\"");
     } else {
@@ -260,12 +261,12 @@ public final class CommandLine {
         values.put(nv[0], new StringByteIterator(nv[1]));
       }
 
-      Status ret = db.update(table, tokens[1], values);
+      Status ret = producer.update(table, tokens[1], values);
       System.out.println("Result: " + ret.getName());
     }
   }
 
-  private static void handleScan(String[] tokens, String table, DB db) {
+  private static void handleScan(String[] tokens, String table, GenericProducer producer) {
     if (tokens.length < 3) {
       System.out.println("Error: syntax is \"scan keyname scanlength [field1 field2 ...]\"");
     } else {
@@ -278,7 +279,7 @@ public final class CommandLine {
       }
 
       Vector<HashMap<String, ByteIterator>> results = new Vector<>();
-      Status ret = db.scan(table, tokens[1], Integer.parseInt(tokens[2]), fields, results);
+      Status ret = producer.scan(table, tokens[1], Integer.parseInt(tokens[2]), fields, results);
       System.out.println("Result: " + ret.getName());
       int record = 0;
       if (results.isEmpty()) {
@@ -296,7 +297,7 @@ public final class CommandLine {
     }
   }
 
-  private static void handleRead(String[] tokens, String table, DB db) {
+  private static void handleRead(String[] tokens, String table, GenericProducer producer) {
     if (tokens.length == 1) {
       System.out.println("Error: syntax is \"read keyname [field1 field2 ...]\"");
     } else {
@@ -309,7 +310,7 @@ public final class CommandLine {
       }
 
       HashMap<String, ByteIterator> result = new HashMap<>();
-      Status ret = db.read(table, tokens[1], fields, result);
+      Status ret = producer.read(table, tokens[1], fields, result);
       System.out.println("Return code: " + ret.getName());
       for (Map.Entry<String, ByteIterator> ent : result.entrySet()) {
         System.out.println(ent.getKey() + "=" + ent.getValue());

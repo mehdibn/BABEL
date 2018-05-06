@@ -50,6 +50,7 @@ public class KafkaInjector {
         //producer.send(new ProducerRecord<String, String>(topic, Integer.toString(count), value));
         //producer.send(new ProducerRecord<String, String>(topic, count % partitions, t.getDateTime(), Integer.toString(count) + " partitions : " + partitions + " time :" + Long.toString(t.getDateTime()), value));
         producer.send(new ProducerRecord<String, String>(topic, count % partitions, t.getDateTime(), Integer.toString(count), value));
+        producer.flush();
         count++;
     }
 

@@ -1,5 +1,7 @@
 package tn.lip2.bdbench;
 
+import tn.lip2.bdbench.adapters.GenericProducer;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.Properties;
 
@@ -70,23 +72,23 @@ public abstract class Workload {
    * Do one insert operation. Because it will be called concurrently from multiple client threads, this
    * function must be thread safe. However, avoid synchronized, or the threads will block waiting for each
    * other, and it will be difficult to reach the target throughput. Ideally, this function would have no side
-   * effects other than DB operations and mutations on threadstate. Mutations to threadstate do not need to be
+   * effects other than GenericProducer operations and mutations on threadstate. Mutations to threadstate do not need to be
    * synchronized, since each thread has its own threadstate instance.
    */
-  public abstract boolean doInsert(DB db, Object threadstate);
+  public abstract boolean doInsert(GenericProducer producer, Object threadstate);
 
   /**
    * Do one transaction operation. Because it will be called concurrently from multiple client threads, this
    * function must be thread safe. However, avoid synchronized, or the threads will block waiting for each
    * other, and it will be difficult to reach the target throughput. Ideally, this function would have no side
-   * effects other than DB operations and mutations on threadstate. Mutations to threadstate do not need to be
+   * effects other than GenericProducer operations and mutations on threadstate. Mutations to threadstate do not need to be
    * synchronized, since each thread has its own threadstate instance.
    * 
    * @return false if the workload knows it is done for this thread. Client will terminate the thread. 
    * Return true otherwise. Return true for workloads that rely on operationcount. For workloads that read
    * traces from a file, return true when there are more to do, false when you are done.
    */
-  public abstract boolean doTransaction(DB db, Object threadstate);
+  public abstract boolean doTransaction(GenericProducer producer, Object threadstate);
 
   /**
    * Allows scheduling a request to stop the workload.

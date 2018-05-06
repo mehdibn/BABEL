@@ -1,7 +1,7 @@
 package tn.lip2.bdbench;
 
 /**
- * Could not create the specified DB.
+ * Could not create the specified IProducer.
  */
 public class UnknownDBException extends Exception {
   /**

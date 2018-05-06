@@ -1,4 +1,4 @@
-package tn.lip2.bdbench;
+package tn.lip2.integration.producers;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,10 +7,14 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
+import tn.lip2.bdbench.ByteIterator;
+import tn.lip2.bdbench.NumericByteIterator;
+import tn.lip2.bdbench.Status;
+import tn.lip2.bdbench.Utils;
 import tn.lip2.bdbench.workloads.TimeSeriesWorkload;
 
 /**
- * Basic DB for printing out time series workloads and/or tracking the distribution
+ * Basic GenericProducer for printing out time series workloads and/or tracking the distribution
  * of keys and fields.
  */
 public class BasicTSDB extends BasicDB {

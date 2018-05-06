@@ -24,7 +24,7 @@
 
 <b>-threads n</b>       : execute using n threads (default: 1)
 
-<b>-db dbname</b>       : specify the name of the DB to use (default: tn.lip2.bdbench.BasicDB)
+<b>-producer dbname</b>       : specify the name of the DB to use (default: tn.lip2.integration.producers.BasicDB)
 
 <b>-target n</b>        : attempt to do n operations per second (default: unlimited)
 
@@ -72,7 +72,7 @@
 
 ### BDBench Test Command
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -s -P ./conf/bdbench.properties| grep -v user`
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar:./benchmark-integration/target/benchmark-integration-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -s -P ./conf/bdbench.properties| grep -v user`
 
 ### BDBench Test Command
 

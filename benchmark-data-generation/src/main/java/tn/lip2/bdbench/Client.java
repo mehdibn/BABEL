@@ -1,5 +1,6 @@
 package tn.lip2.bdbench;
 
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.measurements.Measurements;
 import tn.lip2.bdbench.measurements.exporter.MeasurementsExporter;
 import tn.lip2.bdbench.measurements.exporter.TextMeasurementsExporter;
@@ -174,14 +175,14 @@ class StatusThread extends Thread {
         msg.append(Measurements.getMeasurements().getSummary());
 
         System.err.println(msg);
-        if (Client.kakfaInjector != null) {
-            Client.kakfaInjector.sendMessage(msg.toString());
+        if (Client.kafkaInjector != null) {
+            Client.kafkaInjector.sendMessage(msg.toString());
         }
 
         if (standardstatus) {
             System.out.println(msg);
-            if (Client.kakfaInjector != null) {
-                Client.kakfaInjector.sendMessage(msg.toString());
+            if (Client.kafkaInjector != null) {
+                Client.kafkaInjector.sendMessage(msg.toString());
             }
         }
         return totalops;
@@ -355,7 +356,7 @@ class ClientThread implements Runnable {
     private final CountDownLatch completeLatch;
 
     private static boolean spinSleep;
-    private DB db;
+    private GenericProducer producer;
     private boolean dotransactions;
     private Workload workload;
     private int opcount;
@@ -372,7 +373,7 @@ class ClientThread implements Runnable {
     /**
      * Constructor.
      *
-     * @param db                   the DB implementation to use
+     * @param producer                   the GenericProducer implementation to use
      * @param dotransactions       true to do transactions, false to insert data
      * @param workload             the workload to use
      * @param props                the properties defining the experiment
@@ -380,9 +381,9 @@ class ClientThread implements Runnable {
      * @param targetperthreadperms target number of operations per thread per ms
      * @param completeLatch        The latch tracking the completion of all clients.
      */
-    public ClientThread(DB db, boolean dotransactions, Workload workload, Properties props, int opcount,
+    public ClientThread(GenericProducer producer, boolean dotransactions, Workload workload, Properties props, int opcount,
                         double targetperthreadperms, CountDownLatch completeLatch) {
-        this.db = db;
+        this.producer = producer;
         this.dotransactions = dotransactions;
         this.workload = workload;
         this.opcount = opcount;
@@ -412,7 +413,7 @@ class ClientThread implements Runnable {
     @Override
     public void run() {
         try {
-            db.init();
+            producer.init();
         } catch (DBException e) {
             e.printStackTrace();
             e.printStackTrace(System.out);
@@ -430,7 +431,7 @@ class ClientThread implements Runnable {
         //NOTE: Switching to using nanoTime and parkNanos for time management here such that the measurements
         // and the client thread have the same view on time.
 
-        //spread the thread operations out so they don't all hit the DB at the same time
+        //spread the thread operations out so they don't all hit the GenericProducer at the same time
         // GH issue 4 - throws exception if _target>1 because random.nextInt argument must be >0
         // and the sleep() doesn't make sense for granularities < 1 ms anyway
         if ((targetOpsPerMs > 0) && (targetOpsPerMs <= 1.0)) {
@@ -443,7 +444,7 @@ class ClientThread implements Runnable {
 
                 while (((opcount == 0) || (opsdone < opcount)) && !workload.isStopRequested()) {
 
-                    if (!workload.doTransaction(db, workloadstate)) {
+                    if (!workload.doTransaction(producer, workloadstate)) {
                         break;
                     }
 
@@ -456,7 +457,7 @@ class ClientThread implements Runnable {
 
                 while (((opcount == 0) || (opsdone < opcount)) && !workload.isStopRequested()) {
 
-                    if (!workload.doInsert(db, workloadstate)) {
+                    if (!workload.doInsert(producer, workloadstate)) {
                         break;
                     }
 
@@ -473,7 +474,7 @@ class ClientThread implements Runnable {
 
         try {
             measurements.setIntendedStartTimeNs(0);
-            db.cleanup();
+            producer.cleanup();
         } catch (DBException e) {
             e.printStackTrace();
             e.printStackTrace(System.out);
@@ -537,7 +538,7 @@ public final class Client {
     /**
      * The injector id.
      */
-    public static final String DB_PROPERTY = "db";
+    public static final String DB_PROPERTY = "producer";
 
     /**
      * The database class to be used.
@@ -594,14 +595,19 @@ public final class Client {
     public static final String LABEL_PROPERTY = "label";
 
     /**
-     * Use label for status (e.g. to label one experiment out of a whole batch).
+     * Kafka Brokers
      */
     public static final String KAFKA_BROKERS = "kafkabrokers";
 
     /**
-     * Use label for status (e.g. to label one experiment out of a whole batch).
+     * Kafka Producer Topic
      */
-    public static final String KAFKA_TOPIC = "kafkatopic";
+    public static final String KAFKA_PRODUCER_TOPIC = "kafkaproducertopic";
+
+    /**
+     * Kafka Consumer Topic
+     */
+    public static final String KAFKA_CONSUMER_TOPIC = "kafkaconsumertopic";
 
     /**
      * An optional thread used to track progress and measure JVM stats.
@@ -611,7 +617,7 @@ public final class Client {
     /**
      * Kafka Injector Init.
      */
-    public static KafkaInjector kakfaInjector;
+    public static KafkaInjector kafkaInjector;
 
     // HTrace integration related constants.
 
@@ -634,11 +640,11 @@ public final class Client {
                 "       be specified as the \"target\" property using -p");
         System.out.println("  -load:  run the loading phase of the workload");
         System.out.println("  -t:  run the transactions phase of the workload (default)");
-        System.out.println("  -db dbname: specify the name of the DB to use (default: tn.lip2.bdbench.BasicDB) - \n" +
-                "        can also be specified as the \"db\" property using -p");
+        System.out.println("  -producer dbname: specify the name of the GenericProducer to use (default: tn.lip2.integration.producers.BasicDB) - \n" +
+                "        can also be specified as the \"producer\" property using -p");
         System.out.println("  -P propertyfile: load properties from the given file. Multiple files can");
         System.out.println("           be specified, and will be processed in the order specified");
-        System.out.println("  -p name=value:  specify a property to be passed to the DB and workloads;");
+        System.out.println("  -p name=value:  specify a property to be passed to the GenericProducer and workloads;");
         System.out.println("          multiple properties can be specified, and override any");
         System.out.println("          values in the propertyfile");
         System.out.println("  -s:  show status during run (default: no status)");
@@ -730,8 +736,8 @@ public final class Client {
         } finally {
             if (exporter != null) {
                 exporter.close();
-                if (kakfaInjector != null) {
-                    kakfaInjector.closeOutput();
+                if (kafkaInjector != null) {
+                    kafkaInjector.closeOutput();
                 }
             }
         }
@@ -741,8 +747,8 @@ public final class Client {
     public static void main(String[] args) {
         Properties props = parseArguments(args);
 
-        if ((props.getProperty(KAFKA_BROKERS) != null) && (props.getProperty(KAFKA_TOPIC) != null)) {
-            kakfaInjector = new KafkaInjector(props.getProperty(KAFKA_BROKERS), props.getProperty(KAFKA_TOPIC));
+        if ((props.getProperty(KAFKA_BROKERS) != null) && (props.getProperty(KAFKA_PRODUCER_TOPIC) != null)) {
+            kafkaInjector = new KafkaInjector(props.getProperty(KAFKA_BROKERS), props.getProperty(KAFKA_PRODUCER_TOPIC));
         }
 
         boolean status = Boolean.valueOf(props.getProperty(STATUS_PROPERTY, String.valueOf(false)));
@@ -750,9 +756,9 @@ public final class Client {
 
         long maxExecutionTime = Integer.parseInt(props.getProperty(MAX_EXECUTION_TIME, "0"));
 
-        //get number of threads, target and db
+        //get number of threads, target and producer
         int threadcount = Integer.parseInt(props.getProperty(THREAD_COUNT_PROPERTY, "1"));
-        String dbname = props.getProperty(DB_PROPERTY, "tn.lip2.bdbench.BasicDB");
+        String dbname = props.getProperty(DB_PROPERTY, "tn.lip2.integration.producers.BasicDB");
         String injectorId = props.getProperty(INJECTOR_ID, "default");
         int target = Integer.parseInt(props.getProperty(TARGET_PROPERTY, "0"));
 
@@ -889,11 +895,11 @@ public final class Client {
             }
 
             for (int threadid = 0; threadid < threadcount; threadid++) {
-                DB db;
+                GenericProducer producer;
                 try {
-                    db = DBFactory.newDB(dbname, props, tracer);
+                    producer = DBFactory.newDB(dbname, props, tracer);
                 } catch (UnknownDBException e) {
-                    System.out.println("Unknown DB " + dbname);
+                    System.out.println("Unknown GenericProducer " + dbname);
                     initFailed = true;
                     break;
                 }
@@ -905,7 +911,7 @@ public final class Client {
                     ++threadopcount;
                 }
 
-                ClientThread t = new ClientThread(db, dotransactions, workload, props, threadopcount, targetperthreadperms,
+                ClientThread t = new ClientThread(producer, dotransactions, workload, props, threadopcount, targetperthreadperms,
                         completeLatch);
                 t.setThreadId(threadid);
                 t.setThreadCount(threadcount);
@@ -992,7 +998,7 @@ public final class Client {
         return null;
     }
 
-    private static Properties parseArguments(String[] args) {
+    public static Properties parseArguments(String[] args) {
         Properties props = new Properties();
         // set default values
         props.setProperty(WORKLOAD_PROPERTY, CoreWorkload.class.getName());
@@ -1046,11 +1052,11 @@ public final class Client {
                 } else if (args[argindex].compareTo("-s") == 0) {
                     props.setProperty(STATUS_PROPERTY, String.valueOf(true));
                     argindex++;
-                } else if (args[argindex].compareTo("-db") == 0) {
+                } else if (args[argindex].compareTo("-producer") == 0) {
                     argindex++;
                     if (argindex >= args.length) {
                         usageMessage();
-                        System.out.println("Missing argument value for -db.");
+                        System.out.println("Missing argument value for -producer.");
                         System.exit(0);
                     }
                     props.setProperty(DB_PROPERTY, args[argindex]);

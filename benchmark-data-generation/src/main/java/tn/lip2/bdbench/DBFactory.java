@@ -1,26 +1,27 @@
 package tn.lip2.bdbench;
 
 import org.apache.htrace.core.Tracer;
+import tn.lip2.bdbench.adapters.GenericProducer;
 
 import java.util.Properties;
 
 /**
- * Creates a DB layer by dynamically classloading the specified DB class.
+ * Creates a GenericProducer layer by dynamically classloading the specified GenericProducer class.
  */
 public final class DBFactory {
   private DBFactory() {
     // not used
   }
 
-  public static DB newDB(String dbname, Properties properties, final Tracer tracer) throws UnknownDBException {
+  public static GenericProducer newDB(String dbname, Properties properties, final Tracer tracer) throws UnknownDBException {
     ClassLoader classLoader = DBFactory.class.getClassLoader();
 
-    DB ret;
+    GenericProducer ret;
 
     try {
       Class dbclass = classLoader.loadClass(dbname);
 
-      ret = (DB) dbclass.newInstance();
+      ret = (GenericProducer) dbclass.newInstance();
     } catch (Exception e) {
       e.printStackTrace();
       return null;

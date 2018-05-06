@@ -1,6 +1,8 @@
 package tn.lip2.bdbench;
 
 import java.util.Map;
+
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.measurements.Measurements;
 import org.apache.htrace.core.TraceScope;
 import org.apache.htrace.core.Tracer;
@@ -8,11 +10,11 @@ import org.apache.htrace.core.Tracer;
 import java.util.*;
 
 /**
- * Wrapper around a "real" DB that measures latencies and counts return codes.
+ * Wrapper around a "real" GenericProducer that measures latencies and counts return codes.
  * Also reports latency separately between OK and failed operations.
  */
-public class DBWrapper extends DB {
-  private final DB db;
+public class DBWrapper extends GenericProducer {
+  private final GenericProducer producer;
   private final Measurements measurements;
   private final Tracer tracer;
 
@@ -32,11 +34,11 @@ public class DBWrapper extends DB {
   private final String scopeStringScan;
   private final String scopeStringUpdate;
 
-  public DBWrapper(final DB db, final Tracer tracer) {
-    this.db = db;
+  public DBWrapper(final GenericProducer producer, final Tracer tracer) {
+    this.producer = producer;
     measurements = Measurements.getMeasurements();
     this.tracer = tracer;
-    final String simple = db.getClass().getSimpleName();
+    final String simple = producer.getClass().getSimpleName();
     scopeStringCleanup = simple + "#cleanup";
     scopeStringDelete = simple + "#delete";
     scopeStringInit = simple + "#init";
@@ -47,26 +49,26 @@ public class DBWrapper extends DB {
   }
 
   /**
-   * Set the properties for this DB.
+   * Set the properties for this GenericProducer.
    */
   public void setProperties(Properties p) {
-    db.setProperties(p);
+    producer.setProperties(p);
   }
 
   /**
-   * Get the set of properties for this DB.
+   * Get the set of properties for this GenericProducer.
    */
   public Properties getProperties() {
-    return db.getProperties();
+    return producer.getProperties();
   }
 
   /**
-   * Initialize any state for this DB.
-   * Called once per DB instance; there is one DB instance per client thread.
+   * Initialize any state for this GenericProducer.
+   * Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
    */
   public void init() throws DBException {
     try (final TraceScope span = tracer.newScope(scopeStringInit)) {
-      db.init();
+      producer.init();
 
       this.reportLatencyForEachError = Boolean.parseBoolean(getProperties().
           getProperty(REPORT_LATENCY_FOR_EACH_ERROR_PROPERTY,
@@ -87,14 +89,14 @@ public class DBWrapper extends DB {
   }
 
   /**
-   * Cleanup any state for this DB.
-   * Called once per DB instance; there is one DB instance per client thread.
+   * Cleanup any state for this GenericProducer.
+   * Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
    */
   public void cleanup() throws DBException {
     try (final TraceScope span = tracer.newScope(scopeStringCleanup)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      db.cleanup();
+      producer.cleanup();
       long en = System.nanoTime();
       measure("CLEANUP", Status.OK, ist, st, en);
     }
@@ -115,7 +117,7 @@ public class DBWrapper extends DB {
     try (final TraceScope span = tracer.newScope(scopeStringRead)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      Status res = db.read(table, key, fields, result);
+      Status res = producer.read(table, key, fields, result);
       long en = System.nanoTime();
       measure("READ", res, ist, st, en);
       measurements.reportStatus("READ", res);
@@ -139,7 +141,7 @@ public class DBWrapper extends DB {
     try (final TraceScope span = tracer.newScope(scopeStringScan)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      Status res = db.scan(table, startkey, recordcount, fields, result);
+      Status res = producer.scan(table, startkey, recordcount, fields, result);
       long en = System.nanoTime();
       measure("SCAN", res, ist, st, en);
       measurements.reportStatus("SCAN", res);
@@ -178,7 +180,7 @@ public class DBWrapper extends DB {
     try (final TraceScope span = tracer.newScope(scopeStringUpdate)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      Status res = db.update(table, key, values);
+      Status res = producer.update(table, key, values);
       long en = System.nanoTime();
       measure("UPDATE", res, ist, st, en);
       measurements.reportStatus("UPDATE", res);
@@ -201,7 +203,7 @@ public class DBWrapper extends DB {
     try (final TraceScope span = tracer.newScope(scopeStringInsert)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      Status res = db.insert(table, key, values);
+      Status res = producer.insert(table, key, values);
       long en = System.nanoTime();
       measure("INSERT", res, ist, st, en);
       measurements.reportStatus("INSERT", res);
@@ -220,7 +222,7 @@ public class DBWrapper extends DB {
     try (final TraceScope span = tracer.newScope(scopeStringDelete)) {
       long ist = measurements.getIntendedtartTimeNs();
       long st = System.nanoTime();
-      Status res = db.delete(table, key);
+      Status res = producer.delete(table, key);
       long en = System.nanoTime();
       measure("DELETE", res, ist, st, en);
       measurements.reportStatus("DELETE", res);

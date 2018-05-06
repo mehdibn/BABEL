@@ -1,4 +1,8 @@
-package tn.lip2.bdbench;
+package tn.lip2.bdbench.adapters;
+
+import tn.lip2.bdbench.ByteIterator;
+import tn.lip2.bdbench.DBException;
+import tn.lip2.bdbench.Status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +12,7 @@ import java.util.Vector;
 
 /**
  * A layer for accessing a database to be benchmarked. Each thread in the client
- * will be given its own instance of whatever DB class is to be used in the test.
+ * will be given its own instance of whatever GenericProducer class is to be used in the test.
  * This class should be constructed using a no-argument constructor, so we can
  * load it dynamically. Any argument-based initialization should be
  * done by init().
@@ -25,14 +29,14 @@ import java.util.Vector;
  * target application.  For the sake of comparison between experiments we also 
  * recommend you explain the semantics you chose when presenting performance results.
  */
-public abstract class DB {
+public abstract class GenericProducer {
   /**
-   * Properties for configuring this DB.
+   * Properties for configuring this GenericProducer.
    */
   private Properties properties = new Properties();
 
   /**
-   * Set the properties for this DB.
+   * Set the properties for this GenericProducer.
    */
   public void setProperties(Properties p) {
     properties = p;
@@ -40,22 +44,22 @@ public abstract class DB {
   }
 
   /**
-   * Get the set of properties for this DB.
+   * Get the set of properties for this GenericProducer.
    */
   public Properties getProperties() {
     return properties;
   }
 
   /**
-   * Initialize any state for this DB.
-   * Called once per DB instance; there is one DB instance per client thread.
+   * Initialize any state for this GenericProducer.
+   * Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
    */
   public void init() throws DBException {
   }
 
   /**
-   * Cleanup any state for this DB.
-   * Called once per DB instance; there is one DB instance per client thread.
+   * Cleanup any state for this GenericProducer.
+   * Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
    */
   public void cleanup() throws DBException {
   }

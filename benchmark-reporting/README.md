@@ -35,7 +35,9 @@ Create the index template from the kibana UI (Dev Tools Section)
 
 `producer-template.curl`
 
+Check the Kibana UI from your browser
 
+`http://localhost:5601/app/kibana`
 
 ### Logstach Installation
 
@@ -50,5 +52,10 @@ Unarchive it
 Start the logstash Pipeline 
 
 `./logstash -f ./producer.indexer.conf`
+
+`./logstash -f ../../../IdeaProjects/BDBench/benchmark-reporting/logstach/consumer-indexer.conf --path.data /tmp/logstash-consumer/ > /tmp/logstash-consumer.out 2> /tmp/logstash-consumer.log &`
+
+`./logstash -f ../../../IdeaProjects/BDBench/benchmark-reporting/logstach/producer-indexer.conf --path.data /tmp/logstash-producer/ > /tmp/logstash-producer.out 2> /tmp/logstash-producer.log &`
+
 
 Add the index to Kibana from the Management Section

@@ -1,7 +1,7 @@
 package tn.lip2.bdbench.workloads;
 
 import tn.lip2.bdbench.ByteIterator;
-import tn.lip2.bdbench.DB;
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.RandomByteIterator;
 import tn.lip2.bdbench.WorkloadException;
 import tn.lip2.bdbench.generator.*;
@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import tn.lip2.bdbench.generator.*;
 
 /**
  * Typical RESTFul services benchmarking scenario. Represents a set of client
@@ -219,12 +217,12 @@ public class RestWorkload extends CoreWorkload {
      * Not required for Rest Clients as data population is service specific.
      */
     @Override
-    public boolean doInsert(DB db, Object threadstate) {
+    public boolean doInsert(GenericProducer producer, Object threadstate) {
         return false;
     }
 
     @Override
-    public boolean doTransaction(DB db, Object threadstate) {
+    public boolean doTransaction(GenericProducer producer, Object threadstate) {
         String operation = operationchooser.nextString();
         if (operation == null) {
             return false;
@@ -232,16 +230,16 @@ public class RestWorkload extends CoreWorkload {
 
         switch (operation) {
             case "UPDATE":
-                doTransactionUpdate(db);
+                doTransactionUpdate(producer);
                 break;
             case "INSERT":
-                doTransactionInsert(db);
+                doTransactionInsert(producer);
                 break;
             case "DELETE":
-                doTransactionDelete(db);
+                doTransactionDelete(producer);
                 break;
             default:
-                doTransactionRead(db);
+                doTransactionRead(producer);
         }
         return true;
     }
@@ -262,29 +260,29 @@ public class RestWorkload extends CoreWorkload {
     }
 
     @Override
-    public void doTransactionRead(DB db) {
+    public void doTransactionRead(GenericProducer producer) {
         HashMap<String, ByteIterator> result = new HashMap<String, ByteIterator>();
-        db.read(null, getNextURL(1), null, result);
+        producer.read(null, getNextURL(1), null, result);
     }
 
     @Override
-    public void doTransactionInsert(DB db) {
+    public void doTransactionInsert(GenericProducer producer) {
         HashMap<String, ByteIterator> value = new HashMap<String, ByteIterator>();
         // Create random bytes of insert data with a specific size.
         value.put("data", new RandomByteIterator(fieldlengthgenerator.nextValue().longValue()));
-        db.insert(null, getNextURL(2), value);
+        producer.insert(null, getNextURL(2), value);
     }
 
-    public void doTransactionDelete(DB db) {
-        db.delete(null, getNextURL(3));
+    public void doTransactionDelete(GenericProducer producer) {
+        producer.delete(null, getNextURL(3));
     }
 
     @Override
-    public void doTransactionUpdate(DB db) {
+    public void doTransactionUpdate(GenericProducer producer) {
         HashMap<String, ByteIterator> value = new HashMap<String, ByteIterator>();
         // Create random bytes of update data with a specific size.
         value.put("data", new RandomByteIterator(fieldlengthgenerator.nextValue().longValue()));
-        db.update(null, getNextURL(4), value);
+        producer.update(null, getNextURL(4), value);
     }
 
 }

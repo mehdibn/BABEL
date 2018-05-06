@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import tn.lip2.bdbench.ByteIterator;
 import tn.lip2.bdbench.Client;
-import tn.lip2.bdbench.DB;
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.NumericByteIterator;
 import tn.lip2.bdbench.Status;
 import tn.lip2.bdbench.StringByteIterator;
@@ -472,7 +472,7 @@ public class TestTimeSeriesWorkload {
     }
   }
   
-  static class MockDB extends DB {
+  static class MockDB extends GenericProducer {
     final List<String> keys = new ArrayList<String>();
     final List<Map<String, ByteIterator>> values = 
         new ArrayList<Map<String, ByteIterator>>();

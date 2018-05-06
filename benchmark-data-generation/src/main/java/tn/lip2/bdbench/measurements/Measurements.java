@@ -223,7 +223,7 @@ public class Measurements {
   }
 
   /**
-   * Report a return code for a single DB operation.
+   * Report a return code for a single GenericProducer operation.
    */
   public void reportStatus(final String operation, final Status status) {
     OneMeasurement m = measurementInterval == 1 ?

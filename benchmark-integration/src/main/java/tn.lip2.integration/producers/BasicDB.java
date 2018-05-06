@@ -1,4 +1,10 @@
-package tn.lip2.bdbench;
+package tn.lip2.integration.producers;
+
+import tn.lip2.bdbench.ByteIterator;
+import tn.lip2.bdbench.Client;
+import tn.lip2.bdbench.Status;
+import tn.lip2.bdbench.Utils;
+import tn.lip2.bdbench.adapters.GenericProducer;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -7,9 +13,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 
 /**
- * Basic DB that just prints out the requested operations, instead of doing them against a database.
+ * Basic GenericProducer that just prints out the requested operations, instead of doing them against a database.
  */
-public class BasicDB extends DB {
+public class BasicDB extends GenericProducer {
     public static final String COUNT = "basicdb.count";
     public static final String COUNT_DEFAULT = "false";
 
@@ -59,8 +65,8 @@ public class BasicDB extends DB {
     }
 
     /**
-     * Initialize any state for this DB.
-     * Called once per DB instance; there is one DB instance per client thread.
+     * Initialize any state for this GenericProducer.
+     * Called once per GenericProducer instance; there is one GenericProducer instance per client thread.
      */
     public void init() {
         verbose = Boolean.parseBoolean(getProperties().getProperty(VERBOSE, VERBOSE_DEFAULT));

@@ -1,7 +1,7 @@
 package tn.lip2.bdbench.workloads;
 
 import tn.lip2.bdbench.*;
-import tn.lip2.bdbench.*;
+import tn.lip2.bdbench.adapters.GenericProducer;
 import tn.lip2.bdbench.generator.UniformLongGenerator;
 import tn.lip2.bdbench.measurements.Measurements;
 import tn.lip2.bdbench.generator.*;
@@ -280,7 +280,7 @@ public class CoreWorkload extends Workload {
   public static final String HOTSPOT_OPN_FRACTION_DEFAULT = "0.8";
 
   /**
-   * How many times to retry when insertion of a single item to a DB fails.
+   * How many times to retry when insertion of a single item to a GenericProducer fails.
    */
   public static final String INSERTION_RETRY_LIMIT = "core_workload_insertion_retry_limit";
   public static final String INSERTION_RETRY_LIMIT_DEFAULT = "0";
@@ -532,10 +532,10 @@ public class CoreWorkload extends Workload {
    * Do one insert operation. Because it will be called concurrently from multiple client threads,
    * this function must be thread safe. However, avoid synchronized, or the threads will block waiting
    * for each other, and it will be difficult to reach the target throughput. Ideally, this function would
-   * have no side effects other than DB operations.
+   * have no side effects other than GenericProducer operations.
    */
   @Override
-  public boolean doInsert(DB db, Object threadstate) {
+  public boolean doInsert(GenericProducer producer, Object threadstate) {
     int keynum = keysequence.nextValue().intValue();
     String dbkey = buildKeyName(keynum);
     HashMap<String, ByteIterator> values = buildValues(dbkey);
@@ -543,7 +543,7 @@ public class CoreWorkload extends Workload {
     Status status;
     int numOfRetries = 0;
     do {
-      status = db.insert(table, dbkey, values);
+      status = producer.insert(table, dbkey, values);
       if (null != status && status.isOk()) {
         break;
       }
@@ -575,10 +575,10 @@ public class CoreWorkload extends Workload {
    * Do one transaction operation. Because it will be called concurrently from multiple client
    * threads, this function must be thread safe. However, avoid synchronized, or the threads will block waiting
    * for each other, and it will be difficult to reach the target throughput. Ideally, this function would
-   * have no side effects other than DB operations.
+   * have no side effects other than GenericProducer operations.
    */
   @Override
-  public boolean doTransaction(DB db, Object threadstate) {
+  public boolean doTransaction(GenericProducer producer, Object threadstate) {
     String operation = operationchooser.nextString();
     if(operation == null) {
       return false;
@@ -586,19 +586,19 @@ public class CoreWorkload extends Workload {
 
     switch (operation) {
     case "READ":
-      doTransactionRead(db);
+      doTransactionRead(producer);
       break;
     case "UPDATE":
-      doTransactionUpdate(db);
+      doTransactionUpdate(producer);
       break;
     case "INSERT":
-      doTransactionInsert(db);
+      doTransactionInsert(producer);
       break;
     case "SCAN":
-      doTransactionScan(db);
+      doTransactionScan(producer);
       break;
     default:
-      doTransactionReadModifyWrite(db);
+      doTransactionReadModifyWrite(producer);
     }
 
     return true;
@@ -644,7 +644,7 @@ public class CoreWorkload extends Workload {
     return keynum;
   }
 
-  public void doTransactionRead(DB db) {
+  public void doTransactionRead(GenericProducer producer) {
     // choose a random key
     long keynum = nextKeynum();
 
@@ -664,14 +664,14 @@ public class CoreWorkload extends Workload {
     }
 
     HashMap<String, ByteIterator> cells = new HashMap<String, ByteIterator>();
-    db.read(table, keyname, fields, cells);
+    producer.read(table, keyname, fields, cells);
 
     if (dataintegrity) {
       verifyRow(keyname, cells);
     }
   }
 
-  public void doTransactionReadModifyWrite(DB db) {
+  public void doTransactionReadModifyWrite(GenericProducer producer) {
     // choose a random key
     long keynum = nextKeynum();
 
@@ -704,9 +704,9 @@ public class CoreWorkload extends Workload {
 
     long ist = measurements.getIntendedtartTimeNs();
     long st = System.nanoTime();
-    db.read(table, keyname, fields, cells);
+    producer.read(table, keyname, fields, cells);
 
-    db.update(table, keyname, values);
+    producer.update(table, keyname, values);
 
     long en = System.nanoTime();
 
@@ -718,7 +718,7 @@ public class CoreWorkload extends Workload {
     measurements.measureIntended("READ-MODIFY-WRITE", (int) ((en - ist) / 1000));
   }
 
-  public void doTransactionScan(DB db) {
+  public void doTransactionScan(GenericProducer producer) {
     // choose a random key
     long keynum = nextKeynum();
 
@@ -737,10 +737,10 @@ public class CoreWorkload extends Workload {
       fields.add(fieldname);
     }
 
-    db.scan(table, startkeyname, len, fields, new Vector<HashMap<String, ByteIterator>>());
+    producer.scan(table, startkeyname, len, fields, new Vector<HashMap<String, ByteIterator>>());
   }
 
-  public void doTransactionUpdate(DB db) {
+  public void doTransactionUpdate(GenericProducer producer) {
     // choose a random key
     long keynum = nextKeynum();
 
@@ -756,10 +756,10 @@ public class CoreWorkload extends Workload {
       values = buildSingleValue(keyname);
     }
 
-    db.update(table, keyname, values);
+    producer.update(table, keyname, values);
   }
 
-  public void doTransactionInsert(DB db) {
+  public void doTransactionInsert(GenericProducer producer) {
     // choose the next key
     long keynum = transactioninsertkeysequence.nextValue();
 
@@ -767,7 +767,7 @@ public class CoreWorkload extends Workload {
       String dbkey = buildKeyName(keynum);
 
       HashMap<String, ByteIterator> values = buildValues(dbkey);
-      db.insert(table, dbkey, values);
+      producer.insert(table, dbkey, values);
     } finally {
       transactioninsertkeysequence.acknowledge(keynum);
     }

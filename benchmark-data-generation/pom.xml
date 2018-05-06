@@ -70,6 +70,8 @@
             <artifactId>HdrHistogram</artifactId>
             <version>2.1.4</version>
         </dependency>
+
+        <!-- BDBENCH DEPENDENCIES-->
         <dependency>
             <groupId>tn.lip2</groupId>
             <artifactId>benchmark-core</artifactId>

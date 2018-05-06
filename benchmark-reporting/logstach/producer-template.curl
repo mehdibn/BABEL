@@ -10,8 +10,8 @@ PUT /_template/bdbench-producer
       "refresh_interval": "1s"
     }
   },
-  "mappings": {
-    "_default_": {
+  "producer": {
+    "producer": {
       "dynamic_templates": [
         {
           "message_field": {
