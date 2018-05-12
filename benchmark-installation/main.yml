@@ -1,0 +1,15 @@
+- hosts: kakfa-nodes
+  roles:
+     - { role: kafka.install}
+
+- hosts: elasticsearch-nodes
+  roles:
+     - { role: elasticsearch.install}
+
+- hosts: logstash-nodes
+  roles:
+     - { role: logstash.install}
+
+- hosts: kibana-nodes
+  roles:
+     - { role: kibana.install}

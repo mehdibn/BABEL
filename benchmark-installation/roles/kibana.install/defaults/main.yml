@@ -1,0 +1,7 @@
+---
+kibana_download_timeout_seconds: 600
+kibana_install_parent_dir: /usr/local
+
+kibana_mirror : https://artifacts.elastic.co/downloads/kibana
+kibana_ver : '6.2.4'
+

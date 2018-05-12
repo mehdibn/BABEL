@@ -1,0 +1,8 @@
+---
+
+kibana_name : 'kibana-{{kibana_ver}}-darwin-x86_64'
+kibana_tgz : '{{kibana_name}}.tar.gz'
+kibana_tgz_url : '{{kibana_mirror}}/{{kibana_tgz}}'
+
+kibana_install_dir: '{{kibana_install_parent_dir}}/{{kibana_name}}'
+kibana_install_link_dir: '{{kibana_install_parent_dir}}/kibana'

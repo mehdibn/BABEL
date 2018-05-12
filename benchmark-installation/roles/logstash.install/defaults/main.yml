@@ -1,0 +1,7 @@
+---
+logstash_download_timeout_seconds: 600
+logstash_install_parent_dir: /usr/local
+
+logstash_mirror : https://artifacts.elastic.co/downloads/logstash
+logstash_ver : '6.2.4'
+

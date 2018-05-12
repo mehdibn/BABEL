@@ -1,0 +1,6 @@
+---
+# tasks file for bdbench-install
+
+- name: Create the hosts file for all machines
+  debug:
+    msg: "System : {{ inventory_hostname }} "

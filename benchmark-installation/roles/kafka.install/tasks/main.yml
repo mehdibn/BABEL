@@ -1,0 +1,33 @@
+---
+- name: check for kafka installation..
+  stat:
+    path: '{{kafka_install_dir}}'
+  changed_when: false
+  register: kafka_binary
+- when: not kafka_binary.stat.exists
+  block:
+    - name: download kafka tgz...
+      get_url:
+        url: '{{kafka_tgz_url}}'
+        dest: /tmp/{{kafka_tgz}}
+        mode: '0644'
+        timeout: '{{kafka_download_timeout_seconds}}'
+        checksum: '{{kafka_checksum}}'
+    - name: 'ensure {{kafka_install_parent_dir}} exists'
+      file:
+        path: '{{kafka_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{kafka_tgz}} -C {{kafka_install_parent_dir}}
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{kafka_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{kafka_install_dir}}'
+    dest: '{{kafka_install_link_dir}}'
+    state: link

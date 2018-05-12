@@ -1,0 +1,15 @@
+node1 ansible_ssh_host=localhost
+
+
+[elasticsearch-nodes]
+node1
+
+[logstash-nodes]
+node1
+
+[kibana-nodes]
+node1
+
+[kakfa-nodes]
+node1
+

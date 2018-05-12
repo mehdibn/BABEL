@@ -1,0 +1,8 @@
+---
+
+logstash_name : 'logstash-{{logstash_ver}}'
+logstash_tgz : '{{logstash_name}}.tar.gz'
+logstash_tgz_url : '{{logstash_mirror}}/{{logstash_tgz}}'
+
+logstash_install_dir: '{{logstash_install_parent_dir}}/{{logstash_name}}'
+logstash_install_link_dir: '{{logstash_install_parent_dir}}/logstash'

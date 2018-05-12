@@ -1,0 +1,32 @@
+---
+- name: check for logstash installation..
+  stat:
+    path: '{{logstash_install_dir}}'
+  changed_when: false
+  register: logstash_binary
+- when: not logstash_binary.stat.exists
+  block:
+    - name: download logstash tgz...
+      get_url:
+        url: '{{logstash_tgz_url}}'
+        dest: /tmp/{{logstash_tgz}}
+        mode: '0644'
+        timeout: '{{logstash_download_timeout_seconds}}'
+    - name: 'ensure {{logstash_install_parent_dir}} exists'
+      file:
+        path: '{{logstash_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{logstash_tgz}} -C {{logstash_install_parent_dir}}
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{logstash_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{logstash_install_dir}}'
+    dest: '{{logstash_install_link_dir}}'
+    state: link

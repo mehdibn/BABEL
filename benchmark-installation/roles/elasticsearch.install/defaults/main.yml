@@ -1,0 +1,7 @@
+---
+elasticsearch_download_timeout_seconds: 600
+elasticsearch_install_parent_dir: /usr/local
+
+elasticsearch_mirror : https://artifacts.elastic.co/downloads/elasticsearch
+elasticsearch_ver : '6.2.4'
+
