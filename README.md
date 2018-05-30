@@ -34,4 +34,10 @@ http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.htm
 
 `ansible localhost -m ping`
 
+5. BDBench Installation, from BDBench/benchmark-installation-orchestration :
 
+`ansible-playbook ./install.yml`
+
+5. Start BDBench, from BDBench/benchmark-installation-orchestration :
+
+`ansible-playbook ./start.yml`
