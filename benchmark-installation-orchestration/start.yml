@@ -4,6 +4,7 @@
     shell: "( {{bdbench_install_dir}}/bin/start-zookeeper.sh )"
     async: 10
     poll: 0
+    when: embedded_kafka
 
 - hosts: kafka-nodes
   tasks:
@@ -11,6 +12,7 @@
     shell: "( {{bdbench_install_dir}}/bin/start-kafka.sh )"
     async: 10
     poll: 0
+    when: embedded_kafka
 
 - hosts: elasticsearch-nodes
   tasks:
@@ -18,6 +20,7 @@
     shell: "( {{bdbench_install_dir}}/bin/start-elastic.sh )"
     async: 10
     poll: 0
+    when: embedded_elasticsearch
 
 - hosts: kibana-nodes
   tasks:
@@ -25,6 +28,8 @@
     shell: "( {{bdbench_install_dir}}/bin/start-kibana.sh )"
     async: 10
     poll: 10
+    when: embedded_kibana
+
 
 - hosts: kafka-nodes[0]
   tasks:
