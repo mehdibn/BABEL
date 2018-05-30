@@ -1,0 +1,57 @@
+- hosts: kafka-nodes
+  tasks:
+  - name: "Start Zookeeper "
+    shell: "( {{bdbench_install_dir}}/bin/start-zookeeper.sh )"
+    async: 10
+    poll: 0
+
+- hosts: kafka-nodes
+  tasks:
+  - name: "Start Kafka "
+    shell: "( {{bdbench_install_dir}}/bin/start-kafka.sh )"
+    async: 10
+    poll: 0
+
+- hosts: elasticsearch-nodes
+  tasks:
+  - name: "Start elasticsearch "
+    shell: "( {{bdbench_install_dir}}/bin/start-elastic.sh )"
+    async: 10
+    poll: 0
+
+- hosts: kibana-nodes
+  tasks:
+  - name: "Start Kibana "
+    shell: "( {{bdbench_install_dir}}/bin/start-kibana.sh )"
+    async: 10
+    poll: 10
+
+- hosts: kafka-nodes[0]
+  tasks:
+  - name: "Create  Kafka Topics"
+    shell: "( {{bdbench_install_dir}}/bin/create-kafka-topics.sh )"
+    async: 10
+    poll: 10
+
+
+- hosts: elasticsearch-nodes[0]
+  tasks:
+  - name: "Create  elastic Template"
+    shell: "( {{bdbench_install_dir}}/bin/create-index-template-elastic.sh )"
+    async: 10
+    poll: 5
+
+- hosts: logstash-nodes
+  tasks:
+  - name: "Start Logstash"
+    shell: "( {{bdbench_install_dir}}/bin/start-logstash.sh )"
+    async: 10
+    poll: 0
+
+- hosts: bdbench-nodes
+  tasks:
+  - name: "Start bdbench producer"
+    shell: "( {{bdbench_install_dir}}/bin/start-bdbench-producer.sh > /dev/null 2>&1 & )"
+    async: 10
+    poll: 0
+  tags: producer

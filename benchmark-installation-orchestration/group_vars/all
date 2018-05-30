@@ -1,0 +1,30 @@
+parent_dir : /Users/mehdi
+
+embedded_kafka: true
+kafka_install_parent_dir: '{{parent_dir}}/kafka/'
+
+embedded_elasticsearch: true
+elasticsearch_install_parent_dir: '{{parent_dir}}/elasticsearch/'
+
+embedded_logstash: true
+logstash_install_parent_dir: '{{parent_dir}}/logstash/'
+
+embedded_kibana: true
+kibana_install_parent_dir: '{{parent_dir}}/kibana/'
+
+bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
+
+kafkabrokers : 'localhost:9092'
+zookeeperquorum : 'localhost:2181'
+elastic_coordinator : 'localhost:9200'
+
+producer: 'tn.lip2.integration.producers.KafkaProducer'
+kafkabenchtopic : 'bdbench-m'
+
+
+bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
+bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
+
+bdbench_name : 'bdbench-{{bdbench_ver}}'
+bdbench_ver : '1.0-SNAPSHOT'
+

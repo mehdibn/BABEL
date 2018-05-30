@@ -1,0 +1,127 @@
+---
+- name: check for bdbench installation..
+  stat:
+    path: '{{bdbench_install_dir}}'
+  changed_when: false
+  register: bdbench_binary
+- when: not bdbench_binary.stat.exists
+  block:
+    - name: download bdbench tgz...
+      get_url:
+        url: '{{bdbench_tgz_url}}'
+        dest: /tmp/{{bdbench_tgz}}
+        mode: '0644'
+        timeout: '{{bdbench_download_timeout_seconds}}'
+    - name: 'ensure {{bdbench_install_parent_dir}} exists'
+      file:
+        path: '{{bdbench_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{bdbench_tgz}} -C {{bdbench_install_parent_dir}}
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{bdbench_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{bdbench_install_dir}}'
+    dest: '{{bdbench_install_link_dir}}'
+    state: link
+
+
+- name: 'ensure {{bdbench_install_dir}}/conf exists'
+  file:
+    path: '{{bdbench_install_dir}}/conf'
+    state: directory
+    mode: '0755'
+
+
+- name: Copy bdbench config file
+  template:
+    src: 'templates/bdbench.properties.j2'
+    dest: '{{bdbench_install_dir}}/conf/bdbench.properties'
+
+- name: 'ensure {{bdbench_install_dir}}/bin exists'
+  file:
+    path: '{{bdbench_install_dir}}/bin'
+    state: directory
+    mode: '0755'
+
+- name: Copy kibana dashboards conf
+  template:
+    src: 'templates/kibana-conf.json.j2'
+    dest: '{{bdbench_install_dir}}/conf/kibana-conf.json'
+    mode: '0755'
+
+- name: Copy Zookeeper start script
+  template:
+    src: 'templates/start-zookeeper.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-zookeeper.sh'
+    mode: '0755'
+  when: embedded_kafka
+
+- name: Copy Kafka start script
+  template:
+    src: 'templates/start-kafka.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-kafka.sh'
+    mode: '0755'
+  when: embedded_kafka
+
+- name: Copy elastic start script
+  template:
+    src: 'templates/start-elastic.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-elastic.sh'
+    mode: '0755'
+  when: embedded_elasticsearch
+
+- name: Copy kibana start script
+  template:
+    src: 'templates/start-kibana.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-kibana.sh'
+    mode: '0755'
+  when: embedded_kibana
+
+- name: Copy kafka topics creation script
+  template:
+    src: 'templates/create-kafka-topics.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/create-kafka-topics.sh'
+    mode: '0755'
+
+- name: Copy elastic template creation script
+  template:
+    src: 'templates/create-index-template-elastic.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/create-index-template-elastic.sh'
+    mode: '0755'
+
+- name: Copy elastic template creation json
+  template:
+    src: 'templates/template.json.j2'
+    dest: '{{bdbench_install_dir}}/conf/template.json'
+    mode: '0755'
+
+- name: Copy logstash consumer config
+  template:
+    src: 'templates/consumer-indexer.conf.j2'
+    dest: '{{bdbench_install_dir}}/conf/consumer-indexer.conf'
+    mode: '0755'
+
+- name: Copy logstash producer config
+  template:
+    src: 'templates/producer-indexer.conf.j2'
+    dest: '{{bdbench_install_dir}}/conf/producer-indexer.conf'
+    mode: '0755'
+
+- name: Copy logstash start script
+  template:
+    src: 'templates/start-logstash.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-logstash.sh'
+    mode: '0755'
+
+- name: Copy bdbench producer start script
+  template:
+    src: 'templates/start-bdbench-producer.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-bdbench-producer.sh'
+    mode: '0755'

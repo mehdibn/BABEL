@@ -10,6 +10,8 @@ node1
 [kibana-nodes]
 node1
 
-[kakfa-nodes]
+[kafka-nodes]
 node1
 
+[bdbench-nodes]
+node1

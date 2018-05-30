@@ -1,0 +1,3 @@
+export ZOOKEEPER_PATH="{{ kafka_install_parent_dir }}/kafka"
+
+$ZOOKEEPER_PATH/bin/zookeeper-server-start.sh $ZOOKEEPER_PATH/config/zookeeper.properties > $ZOOKEEPER_PATH/logs/zookeeper.out 2> $ZOOKEEPER_PATH/logs/zookeeper.log &

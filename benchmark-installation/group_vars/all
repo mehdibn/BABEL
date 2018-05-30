@@ -1,5 +1,0 @@
-kafka_install_parent_dir: /Users/mehdi/kafka/
-elasticsearch_install_parent_dir: /Users/mehdi/elasticsearch/
-logstash_install_parent_dir: /Users/mehdi/logstash/
-kibana_install_parent_dir: /Users/mehdi/kibana/
-

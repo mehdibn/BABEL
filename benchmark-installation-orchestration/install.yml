@@ -1,0 +1,20 @@
+- hosts: kafka-nodes
+  roles:
+     - { role: kafka.install, when: embedded_kafka}
+
+- hosts: elasticsearch-nodes
+  roles:
+     - { role: elasticsearch.install, when: embedded_elasticsearch}
+
+
+- hosts: logstash-nodes
+  roles:
+     - { role: logstash.install, when: embedded_logstash}
+
+- hosts: kibana-nodes
+  roles:
+     - { role: kibana.install, when: embedded_kibana}
+
+- hosts: all
+  roles:
+     - { role: bdbench.install}
