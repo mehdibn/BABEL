@@ -5,8 +5,7 @@ export ZOOKEEPER_QUORUM="{{ SUTZookeeper }}"
 
 
 
-{{kafka_install_link_dir}}/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ SUTtopic }} --replication-factor 1 --partitions 1
+{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ SUTtopic }} --replication-factor 1 --partitions 1
 
-
-{{kafka_install_link_dir}}/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --describe
+{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --describe
 
