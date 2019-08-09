@@ -1,8 +1,0 @@
----
-
-elasticsearch_name : 'elasticsearch-{{elasticsearch_ver}}'
-elasticsearch_tgz : '{{elasticsearch_name}}.tar.gz'
-elasticsearch_tgz_url : '{{elasticsearch_mirror}}/{{elasticsearch_tgz}}'
-
-elasticsearch_install_dir: '{{elasticsearch_install_parent_dir}}/{{elasticsearch_name}}'
-elasticsearch_install_link_dir: '{{elasticsearch_install_parent_dir}}/elasticsearch'

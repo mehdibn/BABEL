@@ -19,11 +19,18 @@
         mode: '0755'
     - name: unarchive...
       shell: tar xvf /tmp/{{kibana_tgz}} -C {{kibana_install_parent_dir}}
+
+    - name: copy template...
+      template:
+        src: kibana.yml.j2
+        dest: {{kibana_install_parent_dir}}/config/kibana.yml
+
   always:
     - name: delete archive...
       file:
         path: /tmp/{{kibana_tgz}}
         state: absent
+
 
 - name: link...
   file:

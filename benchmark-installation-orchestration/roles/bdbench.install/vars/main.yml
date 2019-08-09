@@ -9,4 +9,4 @@ bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
 
 kafkaproducertopic : 'bdbench-p'
 kafkaconsumertopic : 'bdbench-c'
-kafkabenchtopic : 'bdbench-m'
+

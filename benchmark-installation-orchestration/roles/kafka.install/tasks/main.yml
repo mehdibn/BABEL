@@ -31,3 +31,14 @@
     src: '{{kafka_install_dir}}'
     dest: '{{kafka_install_link_dir}}'
     state: link
+
+- name: link...
+  file:
+    src: '{{kafka_install_dir}}'
+    dest: '{{kafka_install_link_dir}}'
+    state: link
+
+- name: Creates log directory
+  file:
+    path: {{kafka_install_dir}}/logs
+    state: directory

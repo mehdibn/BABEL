@@ -19,7 +19,10 @@ zookeeperquorum : 'localhost:2181'
 elastic_coordinator : 'localhost:9200'
 
 producer: 'tn.lip2.integration.producers.KafkaProducer'
-kafkabenchtopic : 'bdbench-m'
+SUTkafkabrokers : 'localhost:9290'
+SUTZookeeper: 'localhost:2181'
+SUTtopic : 'bdbench-m'
+
 
 
 bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'

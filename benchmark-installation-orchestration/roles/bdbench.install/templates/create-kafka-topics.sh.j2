@@ -1,12 +1,11 @@
 export KAFKA_PATH="{{ kafka_install_parent_dir }}/kafka"
-export KAFKA_BROKERS="{{ kafkabrokers }}"
-export ZOOKEEPER_QUORUM="{{ zookeeperquorum }}"
+export KAFKA_BROKERS="{{ SUTkafkabrokers }}"
+export ZOOKEEPER_QUORUM="{{ SUTZookeeper }}"
 
 
 
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-p --replication-factor 1 --partitions 1
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-c --replication-factor 1 --partitions 1
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-m --replication-factor 1 --partitions 1
+
+/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ SUTtopic }} --replication-factor 1 --partitions 1
 
 
 /usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --describe

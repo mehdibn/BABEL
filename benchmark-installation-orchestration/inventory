@@ -15,3 +15,6 @@ node1
 
 [bdbench-nodes]
 node1
+
+[sut]
+node1

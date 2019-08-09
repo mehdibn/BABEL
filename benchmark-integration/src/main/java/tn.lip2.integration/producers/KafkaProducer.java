@@ -17,7 +17,7 @@ public class KafkaProducer extends GenericProducer {
     private static KafkaInjector injector;
 
     public void init() throws DBException {
-        injector = new KafkaInjector(getProperties().getProperty("kafkabrokers"), getProperties().getProperty("kafkabenchtopic"));
+        injector = new KafkaInjector(getProperties().getProperty("SUTkafkabrokers"), getProperties().getProperty("SUTtopic"));
         injector.createOutput();
     }
 

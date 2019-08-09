@@ -19,6 +19,11 @@
         mode: '0755'
     - name: unarchive...
       shell: tar xvf /tmp/{{elasticsearch_tgz}} -C {{elasticsearch_install_parent_dir}}
+    - name: copy template...
+      template:
+        src: elasticsearch.yml.j2
+        dest: {{elasticsearch_install_parent_dir}}/config/elasticsearch.yml
+
   always:
     - name: delete archive...
       file:

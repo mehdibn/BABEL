@@ -1,6 +1,6 @@
 ---
 
-kibana_name : 'kibana-{{kibana_ver}}-darwin-x86_64'
+kibana_name : 'kibana-{{kibana_ver}}-linux-x86_64'
 kibana_tgz : '{{kibana_name}}.tar.gz'
 kibana_tgz_url : '{{kibana_mirror}}/{{kibana_tgz}}'
 

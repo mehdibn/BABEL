@@ -1,13 +1,14 @@
 package tn.lip2.core;
 
 
-import com.sun.jmx.snmp.Timestamp;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.PartitionInfo;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Properties;
 
@@ -49,7 +50,7 @@ public class KafkaInjector {
         Timestamp t = new Timestamp(System.currentTimeMillis());
         //producer.send(new ProducerRecord<String, String>(topic, Integer.toString(count), value));
         //producer.send(new ProducerRecord<String, String>(topic, count % partitions, t.getDateTime(), Integer.toString(count) + " partitions : " + partitions + " time :" + Long.toString(t.getDateTime()), value));
-        producer.send(new ProducerRecord<String, String>(topic, count % partitions, t.getDateTime(), Integer.toString(count), value));
+        producer.send(new ProducerRecord<String, String>(topic, count % partitions, t.getTime(), Integer.toString(count), value));
         producer.flush();
         count++;
     }
