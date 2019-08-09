@@ -14,12 +14,12 @@ kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 
 bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
 
-kafkabrokers : 'localhost:9092'
+kafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
 zookeeperquorum : 'localhost:2181'
 elastic_coordinator : 'localhost:9200'
 
 producer: 'tn.lip2.integration.producers.KafkaProducer'
-SUTkafkabrokers : 'localhost:9290'
+SUTkafkabrokers : '{{ ansible_default_ipv4.address }}:9290'
 SUTZookeeper: 'localhost:2181'
 SUTtopic : 'bdbench-m'
 
