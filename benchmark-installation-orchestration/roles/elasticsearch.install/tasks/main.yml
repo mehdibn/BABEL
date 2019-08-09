@@ -22,7 +22,7 @@
     - name: copy template...
       template:
         src: elasticsearch.yml.j2
-        dest: {{elasticsearch_install_parent_dir}}/config/elasticsearch.yml
+        dest: "{{elasticsearch_install_dir}}/config/elasticsearch.yml"
 
   always:
     - name: delete archive...

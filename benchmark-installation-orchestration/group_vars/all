@@ -1,4 +1,4 @@
-parent_dir : /Users/mehdi
+parent_dir : /home/mehdi
 
 embedded_kafka: true
 kafka_install_parent_dir: '{{parent_dir}}/kafka/'

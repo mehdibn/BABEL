@@ -4,10 +4,10 @@ export ZOOKEEPER_QUORUM="{{ zookeeperquorum }}"
 
 
 
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-p --replication-factor 1 --partitions 1
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-c --replication-factor 1 --partitions 1
+/usr/local/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-p --replication-factor 1 --partitions 1
+/usr/local/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-c --replication-factor 1 --partitions 1
 
 
 
-/usr/local/bin/kafka-topics --zookeeper $ZOOKEEPER_QUORUM --describe
+/usr/local/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --describe
 

@@ -23,7 +23,7 @@
     - name: copy template...
       template:
         src: kibana.yml.j2
-        dest: {{kibana_install_parent_dir}}/config/kibana.yml
+        dest: "{{kibana_install_dir}}/config/kibana.yml"
 
   always:
     - name: delete archive...
