@@ -1,0 +1,32 @@
+---
+- name: check for elasticsearch installation..
+  stat:
+    path: '{{elasticsearch_install_dir}}'
+  changed_when: false
+  register: elasticsearch_binary
+- when: not elasticsearch_binary.stat.exists
+  block:
+    - name: download elasticsearch tgz...
+      get_url:
+        url: '{{elasticsearch_tgz_url}}'
+        dest: /tmp/{{elasticsearch_tgz}}
+        mode: '0644'
+        timeout: '{{elasticsearch_download_timeout_seconds}}'
+    - name: 'ensure {{elasticsearch_install_parent_dir}} exists'
+      file:
+        path: '{{elasticsearch_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{elasticsearch_tgz}} -C {{elasticsearch_install_parent_dir}}
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{elasticsearch_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{elasticsearch_install_dir}}'
+    dest: '{{elasticsearch_install_link_dir}}'
+    state: link
