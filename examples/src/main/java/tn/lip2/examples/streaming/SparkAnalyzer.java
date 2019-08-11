@@ -49,8 +49,8 @@ public final class SparkAnalyzer extends GenericConsumer {
 
         Properties props = Client.parseArguments(args);
 
-        String brokers = props.getProperty("kafkabrokers");
-        String topics = props.getProperty("kafkabenchtopic");
+        String brokers = props.getProperty("SUTkafkabrokers");
+        String topics = props.getProperty("SUTtopic");
         System.out.println(brokers + " | " + topics);
 
 

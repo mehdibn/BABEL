@@ -22,6 +22,7 @@ producer: 'tn.lip2.integration.producers.KafkaProducer'
 SUTkafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
 SUTZookeeper: 'localhost:2181'
 SUTtopic : 'bdbench-m'
+SUTKAFKABIN: "{{ kafka_install_parent_dir }}/bin"
 
 
 
