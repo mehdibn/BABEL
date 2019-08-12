@@ -38,13 +38,6 @@
     async: 10
     poll: 10
 
-- hosts: sut[0]
-  tasks:
-  - name: "Create  Kafka Topics"
-    shell: "( {{bdbench_install_dir}}/bin/create-kafka-benchmark-topics.sh )"
-    async: 10
-    poll: 10
-
 - hosts: elasticsearch-nodes[0]
   tasks:
   - name: "Create  elastic Template"
@@ -52,14 +45,14 @@
     async: 10
     poll: 5
 
-- hosts: logstash-nodes
+- hosts: logstash-nodes[0]
   tasks:
   - name: "Start Logstash"
     shell: "( {{bdbench_install_dir}}/bin/start-logstash.sh )"
     async: 10
     poll: 0
 
-- hosts: bdbench-nodes
+- hosts: bdbench-nodes[0]
   tasks:
   - name: "Start bdbench producer"
     shell: "( {{bdbench_install_dir}}/bin/start-bdbench-producer.sh > /dev/null 2>&1 & )"
