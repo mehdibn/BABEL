@@ -61,7 +61,7 @@ public final class SparkAnalyzer extends GenericConsumer {
         // Create context with a 2 seconds batch interval
         // .set("spark.metrics.conf", "/Users/mehdi/IdeaProjects/BDBench/examples/src/main/resources/metrics.properties")
         SparkConf sparkConf = new SparkConf()
-                .setMaster("local[*]")
+        //        .setMaster("local[*]")
                 .setAppName("SparkAnalyzer");
         JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(1));
 
