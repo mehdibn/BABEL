@@ -14,12 +14,12 @@ kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 
 bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
 
-kafkabrokers : '10.0.0.4:9092'
-zookeeperquorum : '10.0.0.4:2181'
-elastic_coordinator : '10.0.0.4:9200'
+kafkabrokers : '10.0.0.8:9092'
+zookeeperquorum : '10.0.0.8:2181'
+elastic_coordinator : '10.0.0.8:9200'
 
 producer: 'tn.lip2.integration.producers.KafkaProducer'
-SUTkafkabrokers : '10.0.0.5:6667,10.0.0.6:6667,10.0.0.7:6667'
+SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
 SUTZookeeper: '10.0.0.4:2181'
 SUTtopic : 'bdbench-m'
 SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"

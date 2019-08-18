@@ -8,3 +8,12 @@
   become_user: root
   tags: [ install, yum ]
 
+- name: Ensure latest {{ openjdk_package_name }} is installed
+  yum:
+    name: "{{ openjdk_devel_package_name }}"
+    state: latest
+    update_cache: yes
+  become: true
+  become_user: root
+  tags: [ install, yum ]
+

@@ -1007,9 +1007,9 @@ public final class Client {
         props.setProperty(Measurements.MEASUREMENT_TYPE_PROPERTY, "raw");
         props.setProperty(STATUS_PROPERTY, "true");
 
-        System.err.print("Command line:");
+        System.err.print("Command line: ");
         for (String arg : args) {
-            System.err.print(" " + arg);
+            System.err.println(" " + arg);
         }
 
         Properties fileprops = new Properties();
