@@ -14,7 +14,7 @@ kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 
 bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
 
-kafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
+kafkabrokers : '10.0.0.4:9092'
 zookeeperquorum : '10.0.0.4:2181'
 elastic_coordinator : '10.0.0.4:9200'
 
