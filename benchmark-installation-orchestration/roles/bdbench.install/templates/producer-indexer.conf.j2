@@ -15,14 +15,13 @@ filter {
     ]
   }
 
-
   grok {
     match => {
-		"message" => "%{TIMESTAMP_ISO8601:timestamp} %{NUMBER:duration} sec: %{NUMBER:operations} operations; %{NUMBER:throughput} current ops/sec; INSERT count: %{NUMBER:count}. average latency\(us\): %{NUMBER:latency} "
+                "message" => "%{TIMESTAMP_ISO8601:timestamp} %{NUMBER:duration} sec: %{NUMBER:operations} operations; %{NUMBER:throughput} current ops/sec; INSERT count: %{NUMBER:count}. average latency\(us\): %{NUMBER:latency} "
 
-	}
+        }
 
-  	}
+        }
 
   date {
     match => ["timestamp" , "yyyy-MM-dd' 'HH:mm:ss:SSS"]
@@ -44,8 +43,11 @@ output {
   } else {
      elasticsearch {
        index => "benchmark"
-       document_type => "benchmark"
      }
   }
 }
+
+
+
+
 

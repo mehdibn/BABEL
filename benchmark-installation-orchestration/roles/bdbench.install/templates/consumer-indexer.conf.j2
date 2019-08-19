@@ -20,13 +20,12 @@ filter {
 
 
   date {
-    match => ["timestamp" , "yyyy-MM-dd' 'HH:mm:ss:SSS"]
+    match => ["timestamp" , "UNIX_MS"]
     target => "@timestamp"
     add_field => { "debug" => "timestampMatched"}
   }
 
 }
-
 
 output {
   if "_grokparsefailure" in [tags] {
@@ -35,8 +34,6 @@ output {
 } else {
 elasticsearch {
   index => "benchmark"
-  document_type => "benchmark"
 }
 }
 }
-

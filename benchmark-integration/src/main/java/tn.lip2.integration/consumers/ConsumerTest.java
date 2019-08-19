@@ -1,4 +1,4 @@
-package tn.lip2.integration.comnsumers;
+package tn.lip2.integration.consumers;
 
 import tn.lip2.bdbench.Client;
 import tn.lip2.bdbench.adapters.GenericConsumer;
