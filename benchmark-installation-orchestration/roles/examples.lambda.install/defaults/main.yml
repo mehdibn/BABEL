@@ -7,7 +7,7 @@ jolokia_jar_url: https://search.maven.org/remotecontent?filepath=org/jolokia/jol
 metricbeat_download_timeout_seconds: 600
 metricbeat_install_parent_dir: /usr/local
 
-metricbeat_mirror : https://artifacts.elastic.co/downloads/metricbeat
+metricbeat_mirror : https://artifacts.elastic.co/downloads/beats
 metricbeat_ver : '7.3.0'
 
 
