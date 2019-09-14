@@ -3,5 +3,3 @@ bdbench_download_timeout_seconds: 600
 bdbench_install_parent_dir: /usr/local
 
 bdbench_mirror : https://github.com/mehdibn/BDBench/releases/download/
-bdbench_ver : '1.0-SNAPSHOT'
-

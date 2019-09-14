@@ -1,6 +1,6 @@
-- hosts: node1
-  roles:
-     - { role: java.install}
+#- hosts: node1
+#  roles:
+#     - { role: java.install}
 
 - hosts: kafka-nodes
   roles:
@@ -22,3 +22,7 @@
 - hosts: all
   roles:
      - { role: bdbench.install}
+
+- hosts: sut
+  roles:
+     - { role: examples.lambda.install}

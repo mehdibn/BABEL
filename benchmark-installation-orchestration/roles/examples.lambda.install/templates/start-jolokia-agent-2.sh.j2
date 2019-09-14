@@ -1,1 +1,1 @@
-sudo -u hdfs  java -jar  {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar  --port {{ consumers_jolokia_agent.1.port }}  --host {{ ansible_default_ipv4.address }} {{ consumers_jolokia_agent.1.port }}
+sudo -u hdfs  java -jar  {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false  --port {{ consumers_jolokia_agent.1.port }}  --host {{ ansible_default_ipv4.address }} {{ consumers_jolokia_agent.1.port }}

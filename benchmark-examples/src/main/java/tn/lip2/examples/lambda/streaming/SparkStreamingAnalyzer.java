@@ -23,22 +23,12 @@ import tn.lip2.bdbench.Client;
 import tn.lip2.bdbench.adapters.GenericConsumer;
 import tn.lip2.bdbench.adapters.models.ConsumerMetric;
 
-/**
- * Consumes messages from one or more topics in Kafka and does wordcount.
- * Usage: JavaDirectKafkaWordCount <brokers> <topics>
- * <brokers> is a list of one or more Kafka brokers
- * <topics> is a list of one or more kafka topics to consume from
- * <p>
- * Example:
- * $ bin/run-example streaming.JavaDirectKafkaWordCount broker1-host:port,broker2-host:port \
- * topic1,topic2
- */
 
-public final class SparkAnalyzer extends GenericConsumer {
+public final class SparkStreamingAnalyzer extends GenericConsumer {
     private static final Pattern SPACE = Pattern.compile(" ");
     private static final AtomicLong runningCount = new AtomicLong(0);
     private static final AtomicLong duration = new AtomicLong(0);
-    private static final SparkAnalyzer analyzer = new SparkAnalyzer();
+    private static final SparkStreamingAnalyzer analyzer = new SparkStreamingAnalyzer();
 
 
     public static void main(String[] args) throws Exception {
@@ -47,6 +37,8 @@ public final class SparkAnalyzer extends GenericConsumer {
 
         String brokers = props.getProperty("SUTkafkabrokers");
         String topics = props.getProperty("SUTtopic");
+        String sparkMode = props.getProperty("SUTSparkMode");
+        System.out.println("Spark Mode : " + sparkMode);
         System.out.println(brokers + " | " + topics);
 
 
@@ -57,8 +49,11 @@ public final class SparkAnalyzer extends GenericConsumer {
         // Create context with a 2 seconds batch interval
         // .set("spark.metrics.conf", "/Users/mehdi/IdeaProjects/BDBench/examples/src/main/resources/metrics.properties")
         SparkConf sparkConf = new SparkConf();
-        sparkConf.setMaster("local[*]")
-                .setAppName("SparkAnalyzer");
+        if ("local".equals(sparkMode)) {
+            sparkConf.setMaster("local[*]");
+        }
+
+        sparkConf.setAppName("SparkStreamingAnalyzer");
 
 
         JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(1));

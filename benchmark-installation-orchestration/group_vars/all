@@ -1,34 +1,94 @@
-parent_dir : /home/mehdi
 
-embedded_kafka: true
-kafka_install_parent_dir: '{{parent_dir}}/kafka/'
 
-embedded_elasticsearch: true
-elasticsearch_install_parent_dir: '{{parent_dir}}/elasticsearch/'
-
-embedded_logstash: true
-logstash_install_parent_dir: '{{parent_dir}}/logstash/'
-
-embedded_kibana: true
-kibana_install_parent_dir: '{{parent_dir}}/kibana/'
-
+# bdbench properties
+# OS System  : linux | darwin
+os_type : darwin
+parent_dir : /Users/mehdi/
 bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
-
-kafkabrokers : '10.0.0.8:9092'
-zookeeperquorum : '10.0.0.8:2181'
-elastic_coordinator : '10.0.0.8:9200'
-
-producer: 'tn.lip2.integration.producers.KafkaProducer'
-SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
-SUTZookeeper: '10.0.0.4:2181'
-SUTtopic : 'bdbench-m'
-SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
-
-
-
 bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
 bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
-
 bdbench_name : 'bdbench-{{bdbench_ver}}'
 bdbench_ver : '1.0-SNAPSHOT'
 
+
+
+#kafka
+embedded_kafka: true
+kafka_install_parent_dir: '{{parent_dir}}/kafka/'
+kafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
+zookeeperquorum : 'localhost:2181'
+kafkarep: "1"
+
+#elastic
+embedded_elasticsearch: true
+elasticsearch_install_parent_dir: '{{parent_dir}}/elasticsearch/'
+elastic_coordinator : 'localhost:9200'
+
+#logstash
+embedded_logstash: true
+logstash_install_parent_dir: '{{parent_dir}}/logstash/'
+
+#kibana
+embedded_kibana: true
+kibana_install_parent_dir: '{{parent_dir}}/kibana/'
+
+#SUT properties
+#lambda
+SUTKAFKABIN: "/Users/mehdi/kafka/kafka/bin/"
+SUTKAFKAREP: "1"
+SUTHiveTablePath: "file:///tmp/spark"
+SUTSparkMode: "local"
+
+#Producer Properties
+producer: 'tn.lip2.integration.producers.KafkaProducer'
+SUTkafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
+SUTZookeeper: 'localhost:2181'
+SUTtopic : 'bdbench-m'
+
+#Consumers properties
+consumers_jolokia_agent:
+  - id: "1"
+    layer: "layer1"
+    port: "7770"
+    type: "Kafka"
+    metrics:
+      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
+        attr: "CollectionTime"
+        field: "gc.psms_collection_time"
+
+  - id: "4"
+    layer: "layer3"
+    port: "7771"
+    type: "datanode"
+    metrics:
+      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
+        attr: "CollectionTime"
+        field: "gc.psms_collection_time"
+
+consumers_jolokia_embedded:
+  - id: "2"
+    layer: "layer2"
+    port: "7772"
+    type: "spark-streaming"
+    metrics:
+      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
+        attr: "CollectionTime"
+        field: "gc.psms_collection_time"
+
+  - id: "3"
+    layer: "layer2"
+    port: "7773"
+    type: "spark-streaming"
+    metrics:
+      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
+        attr: "CollectionTime"
+        field: "gc.psms_collection_time"
+
+  - id: "6"
+    layer: "layer4"
+    port: "7774"
+    type: "spark"
+    metrics:
+      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
+        attr: "CollectionTime"
+        field: "gc.psms_collection_time"

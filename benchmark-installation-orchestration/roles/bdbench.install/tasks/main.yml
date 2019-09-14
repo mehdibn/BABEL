@@ -90,12 +90,6 @@
     dest: '{{bdbench_install_dir}}/bin/create-kafka-benchmark-topics.sh'
     mode: '0755'
 
-- name: Copy kafka topics creation script
-  template:
-    src: 'templates/create-kafka-topics.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/create-kafka-topics.sh'
-    mode: '0755'
-
 - name: Copy elastic template creation script
   template:
     src: 'templates/create-index-template-elastic.sh.j2'
@@ -124,10 +118,4 @@
   template:
     src: 'templates/start-logstash.sh.j2'
     dest: '{{bdbench_install_dir}}/bin/start-logstash.sh'
-    mode: '0755'
-
-- name: Copy bdbench producer start script
-  template:
-    src: 'templates/start-bdbench-producer.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-bdbench-producer.sh'
     mode: '0755'
