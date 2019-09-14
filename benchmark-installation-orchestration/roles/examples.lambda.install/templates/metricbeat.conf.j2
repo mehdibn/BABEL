@@ -8,7 +8,7 @@ metricbeat.modules:
   metricsets: ["jmx"]
   jmx.mappings:
 {% for metric in consumer.metrics %}
-    - mbean: '{{ metric.bean }}'
+    - mbean: '{{ metric.mbean }}'
       attributes:
         - attr: metric.attr
           field: metric.field
@@ -24,7 +24,7 @@ metricbeat.modules:
   metricsets: ["jmx"]
   jmx.mappings:
 {% for metric in consumer.metrics %}
-    - mbean: '{{ metric.bean }}'
+    - mbean: '{{ metric.mbean }}'
       attributes:
         - attr: metric.attr
           field: metric.field
