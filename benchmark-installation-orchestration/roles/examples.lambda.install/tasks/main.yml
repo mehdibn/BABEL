@@ -21,6 +21,14 @@
     timeout: '{{bdbench_download_timeout_seconds}}'
   tags: test
 
+
+- name: link...
+  file:
+    src: '{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar'
+    dest: '/tmp'
+    state: link
+
+
 - name : Copy spark job1 script
   template:
     src: 'templates/start-spark-job-1.sh.j2'
@@ -51,7 +59,6 @@
     src: 'templates/start-jolokia-agent-2.sh.j2'
     dest: '{{bdbench_install_dir}}/bin/start-jolokia-agent-2.sh'
     mode: '0755'
-
 
 
 - name: check for metricbeat installation..
