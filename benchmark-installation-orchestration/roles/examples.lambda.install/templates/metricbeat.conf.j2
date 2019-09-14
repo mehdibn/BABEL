@@ -11,7 +11,7 @@ metricbeat.modules:
     - mbean: '{{ metric.mbean }}'
       attributes:
         - attr: {{ metric.attr }}
-          field: {{ metric.field }}
+          field: {{ consumer.layer }}.{{ consumer.type }}.{{ metric.field }}
 
 {% endfor %}
 {% endfor %}
@@ -26,8 +26,8 @@ metricbeat.modules:
 {% for metric in consumer.metrics %}
     - mbean: '{{ metric.mbean }}'
       attributes:
-        - attr: metric.attr
-          field: metric.field
+        - attr: {{ metric.attr }}
+          field: {{ consumer.layer }}.{{ consumer.type }}.{{ metric.field }}
 
 {% endfor %}
 
