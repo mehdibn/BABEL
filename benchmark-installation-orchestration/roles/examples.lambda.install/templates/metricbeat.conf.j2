@@ -1,6 +1,6 @@
 
 metricbeat.modules:
-{% for consumer in consumers_jolokia_agent %}
+{% for consumer in consumers_jolokia_embedded %}
 - module: jolokia
   period: 1s
   hosts: ["{{ ansible_default_ipv4.address }}:{{ consumer.port }}/jolokia/"]
@@ -10,8 +10,8 @@ metricbeat.modules:
 {% for metric in consumer.metrics %}
     - mbean: '{{ metric.mbean }}'
       attributes:
-        - attr: metric.attr
-          field: metric.field
+        - attr: {{ metric.attr }}
+          field: {{ metric.field }}
 
 {% endfor %}
 {% endfor %}
