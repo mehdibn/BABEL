@@ -32,7 +32,11 @@ logstash_install_parent_dir: '{{parent_dir}}/logstash/'
 embedded_kibana: true
 kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 
+
 #SUT properties
+#Metricbeat
+metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
+
 #lambda
 SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
 SUTKAFKAREP: "3"
