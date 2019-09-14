@@ -53,7 +53,7 @@
     mode: '0755'
 
 
---- metricbeat deployement ----
+---
 - name: check for metricbeat installation..
   stat:
     path: '{{metricbeat_install_dir}}'
