@@ -9,7 +9,7 @@ bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
 
 
 metricbeat_name : 'metricbeat-{{metricbeat_ver}}'
-metricbeat_tgz : '{{metricbeat_name}}-{{ os_type }}-x86_64.tar.gz'
+metricbeat_tgz : '{{metricbeat_name}}-{{ os_type }}-x86.tar.gz'
 metricbeat_tgz_url : '{{metricbeat_mirror}}/{{metricbeat_tgz}}'
 
 metricbeat_install_dir: '{{metricbeat_install_parent_dir}}/{{metricbeat_name}}'
