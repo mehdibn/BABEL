@@ -1,0 +1,12 @@
+---
+
+bdbench_name : 'bdbench-{{bdbench_ver}}'
+bdbench_tgz : '{{bdbench_name}}.tar.gz'
+bdbench_tgz_url : '{{bdbench_mirror}}/{{bdbench_ver}}/{{bdbench_tgz}}'
+
+bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
+bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
+
+kafkaproducertopic : 'bdbench-p'
+kafkaconsumertopic : 'bdbench-c'
+

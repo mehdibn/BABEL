@@ -1,8 +1,6 @@
-package tn.lip2.examples.streaming;
+package tn.lip2.examples.lambda.streaming;
 
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -10,8 +8,6 @@ import java.util.regex.Pattern;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.function.VoidFunction;
-import org.apache.spark.api.java.function.VoidFunction2;
 import org.apache.spark.streaming.Time;
 import scala.Tuple2;
 
@@ -60,9 +56,11 @@ public final class SparkAnalyzer extends GenericConsumer {
 
         // Create context with a 2 seconds batch interval
         // .set("spark.metrics.conf", "/Users/mehdi/IdeaProjects/BDBench/examples/src/main/resources/metrics.properties")
-        SparkConf sparkConf = new SparkConf()
-        //        .setMaster("local[*]")
+        SparkConf sparkConf = new SparkConf();
+        sparkConf.setMaster("local[*]")
                 .setAppName("SparkAnalyzer");
+
+
         JavaStreamingContext jssc = new JavaStreamingContext(sparkConf, Durations.seconds(1));
 
         Set<String> topicsSet = new HashSet<>(Arrays.asList(topics.split(",")));

@@ -1,0 +1,11 @@
+export KAFKA_PATH="{{ SUTKAFKABIN }}"
+export KAFKA_BROKERS="{{ SUTkafkabrokers }}"
+export ZOOKEEPER_QUORUM="{{ SUTZookeeper }}"
+
+
+
+
+{{ SUTKAFKABIN }}/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ SUTtopic }} --replication-factor {{ SUTKAFKAREP }} --partitions 3
+
+{{ SUTKAFKABIN }}/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --describe
+

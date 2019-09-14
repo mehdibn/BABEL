@@ -1,0 +1,1 @@
+sudo -u kafka  java -jar  {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar  --port {{ consumers_jolokia_agent.0.port }}  --host {{ ansible_default_ipv4.address }} {{ consumers_jolokia_agent.0.type }}
