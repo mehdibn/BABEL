@@ -1,5 +1,5 @@
 
-spark2-submit --class tn.lip2.examples.lambda.batch.SparkBatchAnalyzer \
+spark-submit --class tn.lip2.examples.lambda.batch.SparkBatchAnalyzer \
     --master yarn-cluster \
     --num-executors 3 \
     --driver-memory 512m \
@@ -8,4 +8,4 @@ spark2-submit --class tn.lip2.examples.lambda.batch.SparkBatchAnalyzer \
     --files {{ bdbench_install_link_dir }}/conf/bdbench.properties \
     --jars {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar \
     --conf "spark.executor.extraJavaOptions='-javaagent:{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.1.port }},host={{ ansible_default_ipv4.address }}'" \
-    {{ bdbench_install_link_dir }}/jars/examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P bdbench.propertiesOT-jar-with-dependencies.jar -P bdbench.properties
+    {{ bdbench_install_link_dir }}/jars/benchmark-examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P bdbench.propertiesOT-jar-with-dependencies.jar -P bdbench.properties
