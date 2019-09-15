@@ -7,5 +7,5 @@
     --executor-cores 1 \
     --files {{ bdbench_install_link_dir }}/conf/bdbench.properties \
     --jars {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar \
-    --conf "spark.executor.extraJavaOptions='-javaagent:{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.1.port }},host={{ ansible_default_ipv4.address }}'" \
-    {{ bdbench_install_link_dir }}/jars/benchmark-examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P bdbench.propertiesOT-jar-with-dependencies.jar -P bdbench.properties
+    --conf "spark.executor.extraJavaOptions='-javaagent:{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.1.port }},host=0.0.0.0'" \
+    {{ bdbench_install_link_dir }}/jars/benchmark-examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P bdbench.properties

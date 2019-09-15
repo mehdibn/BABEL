@@ -42,6 +42,7 @@ SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
 SUTSPARKBIN: "/usr/hdp/current/spark2-client/bin"
 SUTKAFKAREP: "3"
 SUTHiveTablePath: "hdfs:///tmp/spark"
+SUTCheckpointDir: "hdfs:///tmp/spark-checkpoint"
 SUTSparkMode: "cluster"
 
 #Producer Properties

@@ -21,6 +21,7 @@ public final class SparkStreamingToParquet extends GenericConsumer {
         String brokers = props.getProperty("SUTkafkabrokers");
         String topics = props.getProperty("SUTtopic");
         String parquetPath = props.getProperty("SUTHiveTablePath");
+        String checkpointDir = props.getProperty("SUTCheckpointDir");
         String sparkMode = props.getProperty("SUTSparkMode");
         System.out.println("Spark Mode : " + sparkMode);
         System.out.println(brokers + " | " + topics);
@@ -64,7 +65,7 @@ public final class SparkStreamingToParquet extends GenericConsumer {
         df.writeStream()
                 .format("parquet")
                 .option("path", parquetPath)
-                .option("checkpointLocation", "/tmp/check")
+                .option("checkpointLocation", checkpointDir)
                 .start()
                 .awaitTermination();
 
