@@ -22,13 +22,6 @@
   tags: test
 
 
-- name: link...
-  file:
-    src: '{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar'
-    dest: '/tmp'
-    state: link
-
-
 - name : Copy spark job1 script
   template:
     src: 'templates/start-spark-job-1.sh.j2'

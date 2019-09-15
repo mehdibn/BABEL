@@ -55,6 +55,7 @@ consumers_jolokia_agent:
     layer: "layer1"
     port: "7770"
     type: "Kafka"
+    user: "kafka"
     metrics:
       - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
         attr: "CollectionTime"
@@ -63,7 +64,8 @@ consumers_jolokia_agent:
   - id: "4"
     layer: "layer3"
     port: "7771"
-    type: "datanode"
+    type: "DataNode"
+    user: "hdfs"
     metrics:
       - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
         attr: "CollectionTime"
