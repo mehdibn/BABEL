@@ -8,6 +8,11 @@
         shell: chmod -R 777 {{parent_dir}}
         become: yes
 
+- hosts: all
+  roles:
+     - { role: java.install}
+
+
 - hosts: kafka-nodes
   roles:
      - { role: kafka.install, when: embedded_kafka}
