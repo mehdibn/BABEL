@@ -15,7 +15,7 @@ bdbench_ver : '1.0-SNAPSHOT'
 #kafka
 embedded_kafka: true
 kafka_install_parent_dir: '{{parent_dir}}/kafka/'
-kafkabrokers : '0.0.0.8:9092'
+kafkabrokers : '10.0.0.8:9092'
 zookeeperquorum : '10.0.0.8:2181'
 kafkarep: "1"
 
