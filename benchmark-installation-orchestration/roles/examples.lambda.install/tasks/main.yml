@@ -88,9 +88,9 @@
 
 - name: 'ensure {{metricbeat_install_parent_dir}}/logs exists'
   file:
-  path: '{{metricbeat_install_link_dir}}/logs'
-  state: directory
-  mode: '0755'
+    path: '{{metricbeat_install_link_dir}}/logs'
+    state: directory
+    mode: '0755'
 
 - name : Copy metricbeat conf for jolokia
   template:
