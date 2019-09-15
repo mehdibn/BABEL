@@ -44,7 +44,6 @@ public final class SparkBatchAnalyzer extends GenericConsumer {
             spark = SparkSession
                     .builder()
                     .appName(SparkBatchAnalyzer.class.getName())
-                    .master("local[*]")
                     .getOrCreate();
         }
 
