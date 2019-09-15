@@ -41,17 +41,12 @@
     mode: '0755'
 
 
-- name : Copy jolokia agent1 script
+- name : Copy jolokia agent script
   template:
-    src: 'templates/start-jolokia-agent-1.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-jolokia-agent-1.sh'
+    src: 'templates/start-jolokia-agent.sh.j2'
+    dest: '{{bdbench_install_dir}}/bin/start-jolokia-agent.sh'
     mode: '0755'
 
-- name : Copy jolokia agent2 script
-  template:
-    src: 'templates/start-jolokia-agent-2.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-jolokia-agent-2.sh'
-    mode: '0755'
 
 
 - name: check for metricbeat installation..
