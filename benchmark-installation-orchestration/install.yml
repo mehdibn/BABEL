@@ -2,6 +2,12 @@
 #  roles:
 #     - { role: java.install}
 
+- hosts: all
+  tasks:
+      - name: give access to apps
+        shell: chmod -R 777 {{parent_dir}}
+        become: yes
+
 - hosts: kafka-nodes
   roles:
      - { role: kafka.install, when: embedded_kafka}

@@ -20,9 +20,6 @@
     - name: unarchive...
       shell: tar xvf /tmp/{{bdbench_tgz}} -C {{bdbench_install_parent_dir}}
       become: yes
-    - name: give access to apps
-      shell: chmod -R 777 {{bdbench_install_parent_dir}}
-      become: yes
   always:
     - name: delete archive...
       file:
