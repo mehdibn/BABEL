@@ -3,7 +3,7 @@
 # bdbench properties
 # OS System  : linux | darwin
 os_type : linux
-parent_dir : /home/mehdi/
+parent_dir : /opt/
 bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
 bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
 bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
