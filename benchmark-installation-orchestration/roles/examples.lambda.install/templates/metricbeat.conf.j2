@@ -6,6 +6,10 @@ metricbeat.modules:
   hosts: ["{{ ansible_default_ipv4.address }}:{{ consumer.port }}/jolokia/"]
   namespace: "metrics"
   metricsets: ["jmx"]
+  processors:
+    - drop_event:
+        when:
+          has_fields: ['error.message']
   jmx.mappings:
 {% for metric in consumer.metrics %}
     - mbean: '{{ metric.mbean }}'
@@ -22,6 +26,10 @@ metricbeat.modules:
   hosts: ["{{ ansible_default_ipv4.address }}:{{ consumer.port }}/jolokia/"]
   namespace: "metrics"
   metricsets: ["jmx"]
+  processors:
+    - drop_event:
+        when:
+          has_fields: ['error.message']
   jmx.mappings:
 {% for metric in consumer.metrics %}
     - mbean: '{{ metric.mbean }}'

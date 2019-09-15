@@ -59,9 +59,9 @@ consumers_jolokia_agent:
     type: "Kafka"
     user: "kafka"
     metrics:
-      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
-        attr: "CollectionTime"
-        field: "gc.psms_collection_time"
+      - mbean: "kafka.server:name=MessagesInPerSec,topic={{ SUTtopic }},type=BrokerTopicMetrics"
+        attr: "Count"
+        field: "MessagesInPerSec"
 
   - id: "4"
     layer: "layer3"
