@@ -44,7 +44,6 @@ public final class SparkStreamingToParquet extends GenericConsumer {
             spark = SparkSession
                     .builder()
                     .appName(SparkStreamingToParquet.class.getName())
-                    .master("local[*]")
                     .getOrCreate();
         }
 
