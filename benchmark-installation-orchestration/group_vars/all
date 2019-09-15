@@ -41,8 +41,8 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
 SUTSPARKBIN: "/usr/hdp/current/spark2-client/bin"
 SUTKAFKAREP: "3"
-SUTHiveTablePath: "hdfs:///tmp/spark"
-SUTCheckpointDir: "hdfs:///tmp/spark-checkpoint"
+SUTHiveTablePath: "/tmp/spark-data"
+SUTCheckpointDir: "/tmp/spark-check"
 SUTSparkMode: "cluster"
 
 #Producer Properties
