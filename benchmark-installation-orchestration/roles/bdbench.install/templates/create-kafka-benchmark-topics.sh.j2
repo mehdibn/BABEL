@@ -4,8 +4,8 @@ export ZOOKEEPER_QUORUM="{{ zookeeperquorum }}"
 
 
 
-{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-p --replication-factor {{ kafkarep }} --partitions 1
-{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic bdbench-c --replication-factor {{ kafkarep }} --partitions 1
+{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ kafkaproducertopic }} --replication-factor {{ kafkarep }} --partitions 1
+{{kafka_install_parent_dir}}/kafka/bin/kafka-topics.sh --zookeeper $ZOOKEEPER_QUORUM --create --topic {{ kafkaconsumertopic }} --replication-factor {{ kafkarep }} --partitions 1
 
 
 

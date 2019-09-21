@@ -5,6 +5,11 @@
     async: 10
     poll: 0
     when: embedded_kafka
+  - name: "Wait for Zookeeper"
+    pause:
+      secondes: 4
+
+
 
 - hosts: kafka-nodes
   tasks:
@@ -34,7 +39,7 @@
 - hosts: kafka-nodes[0]
   tasks:
   - name: "Create  Kafka Topics"
-    shell: "( {{bdbench_install_dir}}/bin/create-kafka-topics.sh )"
+    shell: "( {{bdbench_install_dir}}/bin/create-kafka-benchmark-topics.sh )"
     async: 10
     poll: 10
 
@@ -51,11 +56,3 @@
     shell: "( {{bdbench_install_dir}}/bin/start-logstash.sh )"
     async: 10
     poll: 0
-
-- hosts: bdbench-nodes[0]
-  tasks:
-  - name: "Start bdbench producer"
-    shell: "( {{bdbench_install_dir}}/bin/start-bdbench-producer.sh > /dev/null 2>&1 & )"
-    async: 10
-    poll: 0
-  tags: producer

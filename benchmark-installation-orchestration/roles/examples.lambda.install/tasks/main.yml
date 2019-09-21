@@ -7,21 +7,6 @@
     mode: '0755'
 
 
-- name: Copy bdbench producer start script
-  template:
-    src: 'templates/start-bdbench-producer.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-bdbench-producer.sh'
-    mode: '0755'
-
-- name: jolokia deployement
-  get_url:
-    url: '{{ jolokia_jar_url }}'
-    dest: '{{ bdbench_install_link_dir }}/jars/'
-    mode: '0755'
-    timeout: '{{bdbench_download_timeout_seconds}}'
-  tags: test
-
-
 - name : Copy spark job1 script
   template:
     src: 'templates/start-spark-job-1.sh.j2'
@@ -47,54 +32,3 @@
     dest: '{{bdbench_install_dir}}/bin/start-jolokia-agent.sh'
     mode: '0755'
 
-
-
-- name: check for metricbeat installation..
-  stat:
-    path: '{{metricbeat_install_dir}}'
-  changed_when: false
-  register: metricbeat_binary
-- when: not metricbeat_binary.stat.exists
-  block:
-    - name: download metricbeat tgz...
-      get_url:
-        url: '{{metricbeat_tgz_url}}'
-        dest: /tmp/{{metricbeat_tgz}}
-        mode: '0644'
-        timeout: '{{metricbeat_download_timeout_seconds}}'
-    - name: 'ensure {{metricbeat_install_parent_dir}} exists'
-      file:
-        path: '{{metricbeat_install_parent_dir}}'
-        state: directory
-        mode: '0755'
-    - name: unarchive...
-      shell: tar xvf /tmp/{{metricbeat_tgz}} -C {{metricbeat_install_parent_dir}}
-  always:
-    - name: delete archive...
-      file:
-        path: /tmp/{{metricbeat_tgz}}
-        state: absent
-
-- name: link...
-  file:
-    src: '{{metricbeat_install_dir}}'
-    dest: '{{metricbeat_install_link_dir}}'
-    state: link
-
-- name: 'ensure {{metricbeat_install_parent_dir}}/logs exists'
-  file:
-    path: '{{metricbeat_install_link_dir}}/logs'
-    state: directory
-    mode: '0755'
-
-- name : Copy metricbeat conf for jolokia
-  template:
-    src: 'templates/metricbeat.conf.j2'
-    dest: '{{bdbench_install_dir}}/conf/metricbeat.conf'
-    mode: '0755'
-
-- name : Copy metricbeat script
-  template:
-    src: 'templates/start-metricbeat.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-metricbeat.sh'
-    mode: '0755'

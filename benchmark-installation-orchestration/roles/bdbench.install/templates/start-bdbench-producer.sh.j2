@@ -1,4 +1,4 @@
 export BDBENCH_PATH="{{ bdbench_install_dir }}"
 
 
-java -cp $BDBENCH_PATH/jars/benchmark-data-generation-{{ bdbench_ver }}-jar-with-dependencies.jar:$BDBENCH_PATH/jars/benchmark-integration-{{ bdbench_ver }}-jar-with-dependencies.jar  tn.lip2.bdbench.Client -threads 3 -target 3 -s -P $BDBENCH_PATH/conf/bdbench.properties -producer {{ producer }}
+java -cp $BDBENCH_PATH/jars/benchmark-data-generation-{{ bdbench_ver }}-jar-with-dependencies.jar:$BDBENCH_PATH/jars/benchmark-integration-{{ bdbench_ver }}-jar-with-dependencies.jar  tn.lip2.bdbench.Client -threads {{ threads }} -target {{ maxMessages }} -s -P $BDBENCH_PATH/conf/bdbench.properties -producer {{ producer }}

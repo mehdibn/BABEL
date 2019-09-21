@@ -10,3 +10,9 @@ bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
 kafkaproducertopic : 'bdbench-p'
 kafkaconsumertopic : 'bdbench-c'
 
+metricbeat_name : 'metricbeat-{{metricbeat_ver}}-{{ os_type }}-x86_64'
+metricbeat_tgz : '{{metricbeat_name}}.tar.gz'
+metricbeat_tgz_url : '{{metricbeat_mirror}}/{{metricbeat_tgz}}'
+
+metricbeat_install_dir: '{{metricbeat_install_parent_dir}}/{{metricbeat_name}}'
+metricbeat_install_link_dir: '{{metricbeat_install_parent_dir}}/metricbeat'
