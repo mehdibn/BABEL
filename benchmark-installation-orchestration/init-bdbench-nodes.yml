@@ -44,6 +44,11 @@
     async: 40
     poll: 10
 
+  - name: "Wait for Elastic"
+    pause:
+      seconds: 20
+
+
 - hosts: elasticsearch-nodes[0]
   tasks:
   - name: "Create  elastic Template"
