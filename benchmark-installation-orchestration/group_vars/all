@@ -71,9 +71,15 @@ consumers_jolokia_agent:
     type: "DataNode"
     user: "hdfs"
     metrics:
-      - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
-        attr: "CollectionTime"
-        field: "gc.psms_collection_time"
+      - mbean: "Hadoop:*"
+        attr: "TotalDataFileIos"
+        field: "TotalDataFileIos"
+      - mbean: "RpcActivityForPort8010,service=DataNode"
+        attr: "ReceivedBytes"
+        field: "ReceivedBytes"
+      - mbean: "RpcActivityForPort8010,service=DataNode"
+        attr: "RpcProcessingTimeAvgTime"
+        field: "RpcProcessingTimeAvgTime"
 
 consumers_jolokia_embedded:
   - id: "2"

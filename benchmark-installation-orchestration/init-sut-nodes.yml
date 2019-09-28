@@ -20,6 +20,7 @@
     shell: "( {{bdbench_install_dir}}/bin/start-metricbeat.sh )"
     async: 10
     poll: 10
+    ignore_errors: yes
 
 - hosts: sut-spark-nodes[0]
   tasks:
