@@ -5,9 +5,11 @@
     async: 10
     poll: 0
     when: embedded_kafka
+
+
   - name: "Wait for Zookeeper"
     pause:
-      secondes: 4
+      seconds: 4
 
 
 
