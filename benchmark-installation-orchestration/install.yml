@@ -4,8 +4,12 @@
 
 - hosts: all
   tasks:
-      - name: give access to apps
-        shell: chmod -R 777 {{parent_dir}}
+      - name: create the bdbench dir {{parent_dir}}
+        file:
+          path: {{parent_dir}}
+          state: directory
+          recurse: yes
+          mode: '0755'
         become: yes
 
 - hosts: all
