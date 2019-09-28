@@ -131,7 +131,7 @@
 - name: jolokia deployement
   get_url:
     url: '{{ jolokia_jar_url }}'
-    dest: '{{ bdbench_install_link_dir }}/jars/'
+    dest: '{{ bdbench_install_link_dir }}/bin/'
     mode: '0755'
     timeout: '{{bdbench_download_timeout_seconds}}'
   tags: test
