@@ -30,6 +30,7 @@
     async: 20
     poll: 10
     ignore_errors: yes
+    tags: spark
 
 - hosts: sut-spark-nodes[0]
   tasks:
@@ -38,3 +39,4 @@
     async: 20
     poll: 10
     ignore_errors: yes
+    tags: spark
