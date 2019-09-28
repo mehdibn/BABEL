@@ -27,6 +27,7 @@
     shell: "( {{bdbench_install_dir}}/bin/start-spark-job-1.sh )"
     async: 10
     poll: 10
+    ignore_errors: yes
 
 - hosts: sut-spark-nodes[0]
   tasks:
@@ -34,3 +35,4 @@
     shell: "( {{bdbench_install_dir}}/bin/start-spark-job-3.sh )"
     async: 10
     poll: 10
+    ignore_errors: yes
