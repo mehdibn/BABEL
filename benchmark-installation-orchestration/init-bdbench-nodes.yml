@@ -12,7 +12,6 @@
       seconds: 4
 
 
-
 - hosts: kafka-nodes
   tasks:
   - name: "Start Kafka "
@@ -42,7 +41,7 @@
   tasks:
   - name: "Create  Kafka Topics"
     shell: "( {{bdbench_install_dir}}/bin/create-kafka-benchmark-topics.sh )"
-    async: 10
+    async: 40
     poll: 10
 
 - hosts: elasticsearch-nodes[0]
