@@ -6,7 +6,7 @@
   tasks:
       - name: create the bdbench dir {{parent_dir}}
         file:
-          path: {{parent_dir}}
+          path: '{{ parent_dir }}'
           state: directory
           recurse: yes
           mode: '0755'
