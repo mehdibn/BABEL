@@ -71,13 +71,10 @@ consumers_jolokia_agent:
     type: "DataNode"
     user: "hdfs"
     metrics:
-      - mbean: "Hadoop:*"
-        attr: "TotalDataFileIos"
-        field: "TotalDataFileIos"
-      - mbean: "RpcActivityForPort8010,service=DataNode"
+      - mbean: "Hadoop:name=RpcActivityForPort8010,service=DataNode"
         attr: "ReceivedBytes"
         field: "ReceivedBytes"
-      - mbean: "RpcActivityForPort8010,service=DataNode"
+      - mbean: "Hadoop:name=RpcActivityForPort8010,service=DataNode"
         attr: "RpcProcessingTimeAvgTime"
         field: "RpcProcessingTimeAvgTime"
 
