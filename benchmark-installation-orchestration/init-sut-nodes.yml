@@ -21,6 +21,7 @@
     async: 10
     poll: 10
     ignore_errors: yes
+    tags: metrics
 
 - hosts: sut-spark-nodes[0]
   tasks:

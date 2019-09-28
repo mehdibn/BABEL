@@ -180,6 +180,7 @@
     src: 'templates/metricbeat.conf.j2'
     dest: '{{bdbench_install_dir}}/conf/metricbeat.conf'
     mode: '0755'
+  tags: metrics
 
 - name : Copy metricbeat script
   template:

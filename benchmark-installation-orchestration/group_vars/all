@@ -71,9 +71,9 @@ consumers_jolokia_agent:
     type: "DataNode"
     user: "hdfs"
     metrics:
-      - mbean: "Hadoop:name=RpcActivityForPort8010,service=DataNode"
-        attr: "ReceivedBytes"
-        field: "ReceivedBytes"
+      - mbean: "Hadoop:name=FSDatasetState,service=DataNode"
+        attr: "DfsUsed"
+        field: "DfsUsed"
       - mbean: "Hadoop:name=RpcActivityForPort8010,service=DataNode"
         attr: "RpcProcessingTimeAvgTime"
         field: "RpcProcessingTimeAvgTime"
