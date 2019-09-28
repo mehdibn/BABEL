@@ -22,7 +22,7 @@ node1
 10.0.0.6
 10.0.0.7
 
-[sut-kakfa-nodes]
+[sut-kafka-nodes]
 10.0.0.5
 10.0.0.6
 10.0.0.7
