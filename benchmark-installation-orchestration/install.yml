@@ -9,7 +9,7 @@
           path: '{{ parent_dir }}'
           state: directory
           recurse: yes
-          mode: '0755'
+          mode: '0777'
         become: yes
 
 - hosts: all
