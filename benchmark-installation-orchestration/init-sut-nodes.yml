@@ -12,6 +12,7 @@
     async: 10
     poll: 10
     become: yes
+    ignore_errors: yes
 
 - hosts: sut
   tasks:
