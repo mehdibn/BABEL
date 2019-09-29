@@ -81,7 +81,8 @@ consumers_jolokia_agent:
 consumers_jolokia_embedded:
   - id: "2"
     layer: "layer2"
-    port: "7772"
+    port_executor: "7775"
+    port_driver: "7772"
     type: "spark-streaming"
     metrics:
       - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
@@ -90,7 +91,8 @@ consumers_jolokia_embedded:
 
   - id: "3"
     layer: "layer2"
-    port: "7773"
+    port_executor: "7776"
+    port_driver: "7773"
     type: "spark-streaming"
     metrics:
       - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
@@ -99,7 +101,8 @@ consumers_jolokia_embedded:
 
   - id: "6"
     layer: "layer4"
-    port: "7774"
+    port_executor: "7777"
+    port_driver: "7774"
     type: "spark"
     metrics:
       - mbean: "java.lang:name=PS MarkSweep,type=GarbageCollector"
