@@ -49,8 +49,8 @@ SUTSparkMode: "cluster"
 producer: 'tn.lip2.integration.producers.KafkaProducer'
 threads: "5"
 maxMessages: "1000000"
-SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
-SUTZookeeper: 'benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'
+SUTkafkabrokers : 'benchmark-extended-w1.qzawxwrgu0aejmdxf1l4rz3nmb.fx.internal.cloudapp.net:6667,benchmark-extended-w2.qzawxwrgu0aejmdxf1l4rz3nmb.fx.internal.cloudapp.net:6667'
+SUTZookeeper: 'benchmark-extended-m0.qzawxwrgu0aejmdxf1l4rz3nmb.fx.internal.cloudapp.net:2181'
 SUTtopic : 'bdbench-m'
 
 #Consumers properties
