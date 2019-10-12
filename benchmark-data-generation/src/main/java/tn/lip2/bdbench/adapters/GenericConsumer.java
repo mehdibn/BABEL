@@ -16,11 +16,24 @@ public abstract class GenericConsumer {
      */
     private Properties properties = new Properties();
 
+    public String getConsumerId() {
+        return consumerId;
+    }
+
+    /**
+     * Properties for configuring this GenericConsumer.
+     */
+    private String consumerId ;
+
 
     /**
      * Kafka Injector for GenericConsumer Metrics.
      */
     private KafkaInjector kafkaInjector;
+
+    public GenericConsumer(String consumerId) {
+        this.consumerId = consumerId;
+    }
 
     /**
      * Set the properties for this GenericConsumer.
@@ -29,6 +42,7 @@ public abstract class GenericConsumer {
         properties = p;
 
     }
+
 
     /**
      * Get the set of properties for this GenericConsumer.

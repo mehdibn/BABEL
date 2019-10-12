@@ -7,11 +7,16 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import tn.lip2.bdbench.Client;
 import tn.lip2.bdbench.adapters.GenericConsumer;
+import tn.lip2.examples.lambda.listener.CustomStructuredListener;
 
 import java.util.Properties;
 
 public final class SparkStreamingToParquet extends GenericConsumer {
-    private static final SparkStreamingToParquet injector = new SparkStreamingToParquet();
+    private static final SparkStreamingToParquet injector = new SparkStreamingToParquet("SparkStreamingToParquet");
+
+    public SparkStreamingToParquet(String consumerId) {
+        super(consumerId);
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -47,6 +52,7 @@ public final class SparkStreamingToParquet extends GenericConsumer {
                     .getOrCreate();
         }
 
+        spark.listenerManager().register(new CustomStructuredListener(injector));
         // Create direct kafka stream with brokers and topics
         Dataset<Row> df = spark
                 .readStream()

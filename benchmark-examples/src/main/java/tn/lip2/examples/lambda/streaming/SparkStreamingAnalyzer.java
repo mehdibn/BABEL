@@ -22,13 +22,18 @@ import org.apache.spark.streaming.Durations;
 import tn.lip2.bdbench.Client;
 import tn.lip2.bdbench.adapters.GenericConsumer;
 import tn.lip2.bdbench.adapters.models.ConsumerMetric;
+import tn.lip2.examples.lambda.listener.CustomStreamingListener;
 
 
 public final class SparkStreamingAnalyzer extends GenericConsumer {
     private static final Pattern SPACE = Pattern.compile(" ");
     private static final AtomicLong runningCount = new AtomicLong(0);
     private static final AtomicLong duration = new AtomicLong(0);
-    private static final SparkStreamingAnalyzer analyzer = new SparkStreamingAnalyzer();
+    private static final SparkStreamingAnalyzer analyzer = new SparkStreamingAnalyzer("SparkStreamingAnalyzer");
+
+    public SparkStreamingAnalyzer(String consumerId) {
+        super(consumerId);
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -88,9 +93,10 @@ public final class SparkStreamingAnalyzer extends GenericConsumer {
             //System.out.println("Time : =" + time + "| Count =" + stringJavaRDD.count() + " | Global Count=" + runningCount.addAndGet(stringJavaRDD.count()));
 
             //Timestamp timestamp, String duration, String operations, String count
-            analyzer.sendMetric(new ConsumerMetric(new Timestamp(System.currentTimeMillis()), Long.toString(duration.addAndGet(1)), Long.toString(runningCount.addAndGet(stringJavaRDD.count())), Long.toString(stringJavaRDD.count())));
+            //analyzer.sendMetric(new ConsumerMetric(new Timestamp(System.currentTimeMillis()), Long.toString(duration.addAndGet(1)), Long.toString(runningCount.addAndGet(stringJavaRDD.count())), Long.toString(stringJavaRDD.count())));
         });
         // Start the computation
+        jssc.addStreamingListener(new CustomStreamingListener(analyzer));
         jssc.start();
         jssc.awaitTermination();
     }

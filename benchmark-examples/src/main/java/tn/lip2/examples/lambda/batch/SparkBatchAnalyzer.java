@@ -4,8 +4,10 @@ package tn.lip2.examples.lambda.batch;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.util.QueryExecutionListener;
 import tn.lip2.bdbench.Client;
 import tn.lip2.bdbench.adapters.GenericConsumer;
+import tn.lip2.examples.lambda.listener.CustomStructuredListener;
 
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
@@ -16,7 +18,11 @@ public final class SparkBatchAnalyzer extends GenericConsumer {
     private static final Pattern SPACE = Pattern.compile(" ");
     private static final AtomicLong runningCount = new AtomicLong(0);
     private static final AtomicLong duration = new AtomicLong(0);
-    private static final SparkBatchAnalyzer analyzer = new SparkBatchAnalyzer();
+    private static final SparkBatchAnalyzer analyzer = new SparkBatchAnalyzer("SparkBatchAnalyzer");
+
+    public SparkBatchAnalyzer(String consumerId) {
+        super(consumerId);
+    }
 
 
     public static void main(String[] args) throws Exception {
@@ -31,6 +37,7 @@ public final class SparkBatchAnalyzer extends GenericConsumer {
 
         analyzer.setProperties(props);
         analyzer.init();
+
 
         // Create Session
         SparkSession spark;
@@ -47,7 +54,7 @@ public final class SparkBatchAnalyzer extends GenericConsumer {
                     .getOrCreate();
         }
 
-
+        spark.listenerManager().register(new CustomStructuredListener(analyzer));
         // Analytics
         Dataset<Row> lines = spark.read().parquet(parquetPath);
         lines.sort("offset").show();

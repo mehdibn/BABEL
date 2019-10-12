@@ -10,14 +10,18 @@ import java.util.Properties;
 
 public class ConsumerTest extends GenericConsumer {
 
+    public ConsumerTest(String consumerId) {
+        super(consumerId);
+    }
+
     public static void main(String[] args) throws IOException {
 
-        ConsumerTest t = new ConsumerTest();
+        ConsumerTest t = new ConsumerTest("test");
         Properties props = Client.parseArguments(args);
         t.setProperties(props);
         t.init();
         for (int i = 0; i < 10; i++) {
-            ConsumerMetric metric = new ConsumerMetric(new Timestamp(System.currentTimeMillis()), Integer.toString(i), "1", "1", "1");
+            ConsumerMetric metric = new ConsumerMetric("test",new Timestamp(System.currentTimeMillis()), Integer.toString(i), "1", "1", "1");
             System.out.println(metric.toJson());
             t.sendMetric(metric);
         }

@@ -26,24 +26,38 @@ public class ConsumerMetric {
     private String operations;
     private String count;
     private String latency;
+    private String consumer;
 
     private static ObjectMapper MAPPER = new ObjectMapper();
 
 
-    public ConsumerMetric(Timestamp timestamp, String duration, String operations, String count, String latency) {
+
+
+    public ConsumerMetric(String consumer, Timestamp timestamp, String duration, String operations, String count, String latency) {
         this.timestamp = timestamp;
         this.duration = duration;
         this.operations = operations;
         this.count = count;
         this.latency = latency;
+        this.consumer = consumer;
     }
 
-    public ConsumerMetric(Timestamp timestamp, String duration, String operations, String count) {
+    public ConsumerMetric(String consumer, Timestamp timestamp, String duration, String operations, String count) {
         this.timestamp = timestamp;
         this.duration = duration;
         this.operations = operations;
         this.count = count;
+        this.consumer = consumer;
     }
+
+
+    public ConsumerMetric(String consumer, Timestamp timestamp, String count, String latency) {
+        this.timestamp = timestamp;
+        this.count = count;
+        this.latency = latency;
+        this.consumer = consumer;
+    }
+
 
     public Timestamp getTimestamp() {
         return timestamp;
