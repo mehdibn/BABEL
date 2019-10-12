@@ -103,4 +103,7 @@ public class ConsumerMetric {
         return MAPPER.writeValueAsString(this);
     }
 
+    public String getConsumer() {
+        return consumer;
+    }
 }

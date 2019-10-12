@@ -52,7 +52,7 @@ public final class SparkStreamingToParquet extends GenericConsumer {
                     .getOrCreate();
         }
 
-        spark.listenerManager().register(new CustomStructuredListener(injector));
+        spark.streams().addListener(new CustomStructuredListener(injector));
         // Create direct kafka stream with brokers and topics
         Dataset<Row> df = spark
                 .readStream()

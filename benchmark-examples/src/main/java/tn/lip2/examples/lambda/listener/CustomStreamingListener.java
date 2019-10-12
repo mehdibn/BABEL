@@ -40,7 +40,7 @@ public class CustomStreamingListener implements StreamingListener {
 
     @Override
     public void onBatchCompleted(StreamingListenerBatchCompleted batchCompleted) {
-        ConsumerMetric metric = new ConsumerMetric(consumer.getConsumerId(), new Timestamp(System.currentTimeMillis()), Long.toString(batchCompleted.batchInfo().numRecords()), batchCompleted.batchInfo().totalDelay().toString());
+        ConsumerMetric metric = new ConsumerMetric(consumer.getConsumerId(), new Timestamp(System.currentTimeMillis()), Long.toString(batchCompleted.batchInfo().numRecords()), batchCompleted.batchInfo().totalDelay().get().toString());
         consumer.sendMetric(metric);
     }
 
