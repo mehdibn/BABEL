@@ -1,6 +1,5 @@
 # BABEL
-Big Data Decisional Benchmark 
-
+A Generic Benchmarking Platform for BigData Architectures
 
 ![alt text](./doc/img/benchmark.png)
 
