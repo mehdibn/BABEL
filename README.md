@@ -1,10 +1,10 @@
-# BDBench
+# BABEL
 Big Data Decisional Benchmark 
 
 
 ![alt text](./doc/img/benchmark.png)
 
-## BDBench Installation 
+## BABEL Installation 
 
 ### Requirements 
 
@@ -34,10 +34,10 @@ http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.htm
 
 `ansible localhost -m ping`
 
-6. BDBench Installation, from BDBench/benchmark-installation-orchestration :
+6. BABEL Installation, from BABEL/benchmark-installation-orchestration :
 
 `ansible-playbook ./install.yml`
 
-7. Start BDBench, from BDBench/benchmark-installation-orchestration :
+7. Start BABEL, from BABEL/benchmark-installation-orchestration :
 
 `ansible-playbook ./start.yml`
