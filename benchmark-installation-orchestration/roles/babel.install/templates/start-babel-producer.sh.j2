@@ -1,0 +1,4 @@
+export babel_PATH="{{ babel_install_dir }}"
+
+
+java -cp $babel_PATH/jars/benchmark-data-generation-{{ babel_ver }}-jar-with-dependencies.jar:$babel_PATH/jars/benchmark-integration-{{ babel_ver }}-jar-with-dependencies.jar  tn.lipsic.babel.Client -threads {{ threads }} -target {{ maxMessages }} -s -P $babel_PATH/conf/babel.properties -producer {{ producer }}

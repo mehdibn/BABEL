@@ -4,7 +4,7 @@
 
 - hosts: all
   tasks:
-      - name: create the bdbench dir {{parent_dir}}
+      - name: create the babel dir {{parent_dir}}
         file:
           path: '{{ parent_dir }}'
           state: directory
@@ -36,7 +36,7 @@
 
 - hosts: all
   roles:
-     - { role: bdbench.install}
+     - { role: babel.install}
 
 - hosts: sut
   roles:

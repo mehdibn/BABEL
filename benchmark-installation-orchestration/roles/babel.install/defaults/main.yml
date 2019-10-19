@@ -1,0 +1,15 @@
+---
+babel_download_timeout_seconds: 600
+babel_install_parent_dir: /usr/local
+
+babel_mirror : https://github.com/mehdibn/babel/releases/download/
+
+
+jolokia_jar_url: https://search.maven.org/remotecontent?filepath=org/jolokia/jolokia-jvm/1.6.2/jolokia-jvm-1.6.2-agent.jar
+
+
+metricbeat_download_timeout_seconds: 600
+metricbeat_mirror : https://artifacts.elastic.co/downloads/beats/metricbeat
+metricbeat_ver : '7.3.0'
+
+

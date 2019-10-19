@@ -1,4 +1,4 @@
-# BDBench Data Generator
+# babel Data Generator
 
 ## To build this project :
 
@@ -6,15 +6,15 @@
 
 ## To generate Data :
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client `
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lipsic.babel.Client `
 
 ## Example of a Multi-threaded Injection with Stats :
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -P ./conf/bdbench.properties -s | grep -v user`
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lipsic.babel.Client -threads 3 -target 3 -P ./conf/babel.properties -s | grep -v user`
 
 ## Benchmark Generator Options :
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -help`
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lipsic.babel.Client -help`
 
 ### Options 
 
@@ -24,7 +24,7 @@
 
 <b>-threads n</b>       : execute using n threads (default: 1)
 
-<b>-producer dbname</b>       : specify the name of the DB to use (default: tn.lip2.integration.producers.BasicDB)
+<b>-producer dbname</b>       : specify the name of the DB to use (default: tn.lipsic.integration.producers.BasicDB)
 
 <b>-target n</b>        : attempt to do n operations per second (default: unlimited)
 
@@ -63,17 +63,17 @@
 
 `/usr/local/bin/kafka-topics --zookeeper localhost:2181 --describe`
 
-`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic bdbench --replication-factor 1 --partitions 1`
+`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic babel --replication-factor 1 --partitions 1`
 
-`/usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic bdbench --from-beginning  --property print.key=true --property print.timestamp=true`
+`/usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic babel --from-beginning  --property print.key=true --property print.timestamp=true`
 
-`/usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic bdbench`
+`/usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic babel`
 
 
-### BDBench Test Command
+### babel Test Command
 
-`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar:./benchmark-integration/target/benchmark-integration-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lip2.bdbench.Client -threads 3 -target 3 -s -P ./conf/bdbench.properties| grep -v user`
+`java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar:./benchmark-integration/target/benchmark-integration-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lipsic.babel.Client -threads 3 -target 3 -s -P ./conf/babel.properties| grep -v user`
 
-### BDBench Test Command
+### babel Test Command
 
 `log.message.timestamp.type -> CreateTime`

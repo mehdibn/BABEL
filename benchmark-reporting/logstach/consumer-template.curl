@@ -1,9 +1,9 @@
-PUT /_template/bdbench-consumer
+PUT /_template/babel-consumer
   {
     "order": 0,
     "version": 60001,
     "index_patterns": [
-      "bdbench-consumer"
+      "babel-consumer"
     ],
     "settings": {
       "index": {

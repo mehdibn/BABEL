@@ -1,14 +1,14 @@
 
 
-# bdbench properties
+# babel properties
 # OS System  : linux | darwin
 os_type : darwin
 parent_dir : /Users/mehdi/
-bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
-bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
-bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
-bdbench_name : 'bdbench-{{bdbench_ver}}'
-bdbench_ver : '1.0-SNAPSHOT'
+babel_install_parent_dir: '{{parent_dir}}/babel/'
+babel_install_dir: '{{babel_install_parent_dir}}/{{babel_name}}'
+babel_install_link_dir: '{{babel_install_parent_dir}}/babel'
+babel_name : 'babel-{{babel_ver}}'
+babel_ver : '1.0-SNAPSHOT'
 
 
 
@@ -40,10 +40,10 @@ SUTHiveTablePath: "file:///tmp/spark"
 SUTSparkMode: "local"
 
 #Producer Properties
-producer: 'tn.lip2.integration.producers.KafkaProducer'
+producer: 'tn.lipsic.integration.producers.KafkaProducer'
 SUTkafkabrokers : '{{ ansible_default_ipv4.address }}:9092'
 SUTZookeeper: 'localhost:2181'
-SUTtopic : 'bdbench-m'
+SUTtopic : 'babel-m'
 
 #Consumers properties
 consumers_jolokia_agent:

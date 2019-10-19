@@ -1,0 +1,4 @@
+
+{% for consumer in consumers_jolokia_agent %}
+sudo -u {{ consumer.user }}  java -jar  {{ babel_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar  --port {{ consumer.port }}  --host 0.0.0.0 start {{ consumer.type }}
+{% endfor %}

@@ -1,12 +1,12 @@
 
-{{ SUTSPARKBIN }}/spark-submit --class tn.lip2.examples.lambda.batch.SparkBatchAnalyzer \
+{{ SUTSPARKBIN }}/spark-submit --class tn.lipsic.examples.lambda.batch.SparkBatchAnalyzer \
     --master yarn-client \
     --num-executors 3 \
     --driver-memory 512m \
     --executor-memory 512m \
     --executor-cores 1 \
-    --files {{ bdbench_install_link_dir }}/conf/bdbench.properties \
-    --jars {{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar \
-    --conf "spark.driver.extraJavaOptions='-javaagent:{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.2.port_driver }},host=0.0.0.0'" \
-    --conf "spark.executor.extraJavaOptions='-javaagent:{{ bdbench_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.2.port_executor }},host=0.0.0.0'" \
-    {{ bdbench_install_link_dir }}/jars/benchmark-examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P {{ bdbench_install_link_dir }}/conf/bdbench.properties
+    --files {{ babel_install_link_dir }}/conf/babel.properties \
+    --jars {{ babel_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar \
+    --conf "spark.driver.extraJavaOptions='-javaagent:{{ babel_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.2.port_driver }},host=0.0.0.0'" \
+    --conf "spark.executor.extraJavaOptions='-javaagent:{{ babel_install_link_dir }}/jars/jolokia-jvm-1.6.2-agent.jar=port={{ consumers_jolokia_embedded.2.port_executor }},host=0.0.0.0'" \
+    {{ babel_install_link_dir }}/jars/benchmark-examples-1.0-SNAPSHOT-jar-with-dependencies.jar -P {{ babel_install_link_dir }}/conf/babel.properties

@@ -1,14 +1,14 @@
 - hosts: sut-kafka-nodes[0]
   tasks:
   - name: "Create  Kafka Topics"
-    shell: "( {{bdbench_install_dir}}/bin/create-kafka-topics.sh )"
+    shell: "( {{babel_install_dir}}/bin/create-kafka-topics.sh )"
     async: 10
     poll: 10
 
 - hosts: sut
   tasks:
   - name: "Start Jolokia"
-    shell: "( {{bdbench_install_dir}}/bin/start-jolokia-agent.sh )"
+    shell: "( {{babel_install_dir}}/bin/start-jolokia-agent.sh )"
     async: 10
     poll: 10
     become: yes
@@ -17,7 +17,7 @@
 - hosts: sut
   tasks:
   - name: "Start Metricbeat"
-    shell: "( {{bdbench_install_dir}}/bin/start-metricbeat.sh )"
+    shell: "( {{babel_install_dir}}/bin/start-metricbeat.sh )"
     async: 10
     poll: 10
     ignore_errors: yes
@@ -26,7 +26,7 @@
 - hosts: sut-spark-nodes[0]
   tasks:
   - name: "Start spark job 1"
-    shell: "( {{bdbench_install_dir}}/bin/start-spark-job-1.sh )"
+    shell: "( {{babel_install_dir}}/bin/start-spark-job-1.sh )"
     async: 20
     poll: 10
     ignore_errors: yes
@@ -35,7 +35,7 @@
 - hosts: sut-spark-nodes[0]
   tasks:
   - name: "Start spark job 3"
-    shell: "( {{bdbench_install_dir}}/bin/start-spark-job-3.sh )"
+    shell: "( {{babel_install_dir}}/bin/start-spark-job-3.sh )"
     async: 20
     poll: 10
     ignore_errors: yes

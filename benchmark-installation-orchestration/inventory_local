@@ -13,7 +13,7 @@ node1
 [kafka-nodes]
 node1
 
-[bdbench-nodes]
+[babel-nodes]
 node1
 
 [sut]

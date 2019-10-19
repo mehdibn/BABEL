@@ -3,26 +3,26 @@
 - name: Copy kafka topics creation script
   template:
     src: 'templates/create-kafka-topics.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/create-kafka-topics.sh'
+    dest: '{{babel_install_dir}}/bin/create-kafka-topics.sh'
     mode: '0755'
 
 
 - name : Copy spark job1 script
   template:
     src: 'templates/start-spark-job-1.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-spark-job-1.sh'
+    dest: '{{babel_install_dir}}/bin/start-spark-job-1.sh'
     mode: '0755'
 
 - name : Copy spark job2 script
   template:
     src: 'templates/start-spark-job-2.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-spark-job-2.sh'
+    dest: '{{babel_install_dir}}/bin/start-spark-job-2.sh'
     mode: '0755'
   tags: spark
 
 - name : Copy spark job3 script
   template:
     src: 'templates/start-spark-job-3.sh.j2'
-    dest: '{{bdbench_install_dir}}/bin/start-spark-job-3.sh'
+    dest: '{{babel_install_dir}}/bin/start-spark-job-3.sh'
     mode: '0755'
   tags: spark

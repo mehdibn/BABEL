@@ -1,0 +1,8 @@
+
+echo "-------------------Create index---------------------------"
+
+curl -XPUT  'http://{{ elastic_coordinator }}/benchmark'
+
+echo "--------------------Add Mapping---------------------------"
+
+curl -XPUT  'http://{{ elastic_coordinator }}/benchmark/_mapping' -H 'Content-Type: application/json' -d @{{babel_install_dir}}/conf/template.json

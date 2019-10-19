@@ -1,14 +1,14 @@
 
 
-# bdbench properties
+# babel properties
 # OS System  : linux | darwin
 os_type : linux
 parent_dir : /var/app
-bdbench_install_parent_dir: '{{parent_dir}}/bdbench/'
-bdbench_install_dir: '{{bdbench_install_parent_dir}}/{{bdbench_name}}'
-bdbench_install_link_dir: '{{bdbench_install_parent_dir}}/bdbench'
-bdbench_name : 'bdbench-{{bdbench_ver}}'
-bdbench_ver : '1.0-SNAPSHOT'
+babel_install_parent_dir: '{{parent_dir}}/babel/'
+babel_install_dir: '{{babel_install_parent_dir}}/{{babel_name}}'
+babel_install_link_dir: '{{babel_install_parent_dir}}/babel'
+babel_name : 'babel-{{babel_ver}}'
+babel_ver : '1.0-SNAPSHOT'
 
 
 
@@ -46,12 +46,12 @@ SUTCheckpointDir: "/tmp/spark-check"
 SUTSparkMode: "cluster"
 
 #Producer Properties
-producer: 'tn.lip2.integration.producers.KafkaProducer'
+producer: 'tn.lipsic.integration.producers.KafkaProducer'
 threads: "5"
 maxMessages: "1000000"
 SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
 SUTZookeeper: 'benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'
-SUTtopic : 'bdbench-m'
+SUTtopic : 'babel-m'
 
 #Consumers properties
 consumers_jolokia_agent:

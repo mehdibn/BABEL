@@ -1,5 +1,0 @@
-export LOGSTASH_PATH="{{ logstash_install_parent_dir }}/logstash"
-
-$LOGSTASH_PATH/bin/logstash  --log.level info -f {{bdbench_install_dir}}/conf/producer-indexer.conf --path.data $LOGSTASH_PATH/data/logstash-producer/ > $LOGSTASH_PATH/data/logstash-producer.out 2> $LOGSTASH_PATH/data/logstash-producer.log &
-
-$LOGSTASH_PATH/bin/logstash  --log.level info -f {{bdbench_install_dir}}/conf/consumer-indexer.conf --path.data $LOGSTASH_PATH/data/logstash-consumer/ > $LOGSTASH_PATH/data/logstash-consumer.out 2> $LOGSTASH_PATH/data/logstash-consumer.log &

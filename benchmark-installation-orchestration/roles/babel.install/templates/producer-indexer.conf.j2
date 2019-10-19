@@ -1,0 +1,53 @@
+input {
+  kafka {
+    bootstrap_servers => "{{ kafkabrokers }}"
+    topics => ["babel-p"]
+  }
+}
+
+
+filter {
+
+
+  mutate {
+    gsub => [
+      "message", ",", "."
+    ]
+  }
+
+  grok {
+    match => {
+                "message" => "%{TIMESTAMP_ISO8601:timestamp} %{NUMBER:duration} sec: %{NUMBER:operations} operations; %{NUMBER:throughput} current ops/sec; INSERT count: %{NUMBER:count}. average latency\(us\): %{NUMBER:latency} "
+
+        }
+
+        }
+
+  date {
+    match => ["timestamp" , "yyyy-MM-dd' 'HH:mm:ss:SSS"]
+    target => "@timestamp"
+    add_field => { "debug" => "timestampMatched"}
+  }
+
+  mutate {
+    add_field => { "type" => "producer" }
+  }
+
+}
+
+
+output {
+  if "_grokparsefailure" in [tags] {
+    # write events that didn't match to a file
+    file { path => "/tmp/grok_failures_producer.txt" }
+  } else {
+     elasticsearch {
+       index => "benchmark"
+     }
+  }
+}
+
+
+
+
+

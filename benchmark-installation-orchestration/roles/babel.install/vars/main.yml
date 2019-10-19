@@ -1,0 +1,18 @@
+---
+
+babel_name : 'babel-{{babel_ver}}'
+babel_tgz : '{{babel_name}}.tar.gz'
+babel_tgz_url : '{{babel_mirror}}/{{babel_ver}}/{{babel_tgz}}'
+
+babel_install_dir: '{{babel_install_parent_dir}}/{{babel_name}}'
+babel_install_link_dir: '{{babel_install_parent_dir}}/babel'
+
+kafkaproducertopic : 'babel-p'
+kafkaconsumertopic : 'babel-c'
+
+metricbeat_name : 'metricbeat-{{metricbeat_ver}}-{{ os_type }}-x86_64'
+metricbeat_tgz : '{{metricbeat_name}}.tar.gz'
+metricbeat_tgz_url : '{{metricbeat_mirror}}/{{metricbeat_tgz}}'
+
+metricbeat_install_dir: '{{metricbeat_install_parent_dir}}/{{metricbeat_name}}'
+metricbeat_install_link_dir: '{{metricbeat_install_parent_dir}}/metricbeat'

@@ -1,9 +1,9 @@
-PUT /_template/bdbench-producer
+PUT /_template/babel-producer
 {
   "order": 0,
   "version": 60001,
   "index_patterns": [
-    "bdbench-producer"
+    "babel-producer"
   ],
   "settings": {
     "index": {

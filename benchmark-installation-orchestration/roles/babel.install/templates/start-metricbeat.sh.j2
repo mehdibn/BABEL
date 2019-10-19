@@ -1,0 +1,3 @@
+kill $(ps aux | grep 'metricbeat' | awk '{print $2}') > /dev/null 2> /dev/null &
+
+{{ metricbeat_install_link_dir }}/metricbeat -c {{ babel_install_link_dir }}/conf/metricbeat.conf -e > {{ metricbeat_install_link_dir }}/logs/metricbeat.out 2> {{ metricbeat_install_link_dir }}/logs/metricbeat.log &

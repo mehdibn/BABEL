@@ -1,3 +1,3 @@
 ---
-bdbench_download_timeout_seconds: 600
+babel_download_timeout_seconds: 600
 

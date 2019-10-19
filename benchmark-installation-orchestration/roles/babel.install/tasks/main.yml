@@ -1,0 +1,195 @@
+---
+- name: check for babel installation..
+  stat:
+    path: '{{babel_install_dir}}'
+  changed_when: false
+  register: babel_binary
+- when: not babel_binary.stat.exists
+  block:
+    - name: download babel tgz...
+      get_url:
+        url: '{{babel_tgz_url}}'
+        dest: /tmp/{{babel_tgz}}
+        mode: '0644'
+        timeout: '{{babel_download_timeout_seconds}}'
+    - name: 'ensure {{babel_install_parent_dir}} exists'
+      file:
+        path: '{{babel_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{babel_tgz}} -C {{babel_install_parent_dir}}
+      become: yes
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{babel_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{babel_install_dir}}'
+    dest: '{{babel_install_link_dir}}'
+    state: link
+
+
+- name: 'ensure {{babel_install_dir}}/conf exists'
+  file:
+    path: '{{babel_install_dir}}/conf'
+    state: directory
+    mode: '0755'
+
+
+- name: Copy babel config file
+  template:
+    src: 'templates/babel.properties.j2'
+    dest: '{{babel_install_dir}}/conf/babel.properties'
+
+- name: 'ensure {{babel_install_dir}}/bin exists'
+  file:
+    path: '{{babel_install_dir}}/bin'
+    state: directory
+    mode: '0755'
+
+- name: Copy kibana dashboards conf
+  template:
+    src: 'templates/kibana-conf.json.j2'
+    dest: '{{babel_install_dir}}/conf/kibana-conf.json'
+    mode: '0755'
+
+- name: Copy Zookeeper start script
+  template:
+    src: 'templates/start-zookeeper.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-zookeeper.sh'
+    mode: '0755'
+  when: embedded_kafka
+
+- name: Copy Kafka start script
+  template:
+    src: 'templates/start-kafka.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-kafka.sh'
+    mode: '0755'
+  when: embedded_kafka
+
+- name: Copy elastic start script
+  template:
+    src: 'templates/start-elastic.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-elastic.sh'
+    mode: '0755'
+  when: embedded_elasticsearch
+
+- name: Copy kibana start script
+  template:
+    src: 'templates/start-kibana.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-kibana.sh'
+    mode: '0755'
+  when: embedded_kibana
+
+- name: Copy kafka Benchmark topics creation script
+  template:
+    src: 'templates/create-kafka-benchmark-topics.sh.j2'
+    dest: '{{babel_install_dir}}/bin/create-kafka-benchmark-topics.sh'
+    mode: '0755'
+
+- name: Copy elastic template creation script
+  template:
+    src: 'templates/create-index-template-elastic.sh.j2'
+    dest: '{{babel_install_dir}}/bin/create-index-template-elastic.sh'
+    mode: '0755'
+
+- name: Copy elastic template creation json
+  template:
+    src: 'templates/template.json.j2'
+    dest: '{{babel_install_dir}}/conf/template.json'
+    mode: '0755'
+
+- name: Copy logstash consumer config
+  template:
+    src: 'templates/consumer-indexer.conf.j2'
+    dest: '{{babel_install_dir}}/conf/consumer-indexer.conf'
+    mode: '0755'
+
+- name: Copy logstash producer config
+  template:
+    src: 'templates/producer-indexer.conf.j2'
+    dest: '{{babel_install_dir}}/conf/producer-indexer.conf'
+    mode: '0755'
+
+- name: Copy logstash start script
+  template:
+    src: 'templates/start-logstash.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-logstash.sh'
+    mode: '0755'
+
+
+- name: Copy babel producer start script
+  template:
+    src: 'templates/start-babel-producer.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-babel-producer.sh'
+    mode: '0755'
+
+- name: jolokia deployement
+  get_url:
+    url: '{{ jolokia_jar_url }}'
+    dest: '{{ babel_install_link_dir }}/jars/'
+    mode: '0755'
+    timeout: '{{babel_download_timeout_seconds}}'
+  tags: test
+
+
+- name: check for metricbeat installation..
+  stat:
+    path: '{{metricbeat_install_dir}}'
+  changed_when: false
+  register: metricbeat_binary
+- when: not metricbeat_binary.stat.exists
+  block:
+    - name: download metricbeat tgz...
+      get_url:
+        url: '{{metricbeat_tgz_url}}'
+        dest: /tmp/{{metricbeat_tgz}}
+        mode: '0644'
+        timeout: '{{metricbeat_download_timeout_seconds}}'
+    - name: 'ensure {{metricbeat_install_parent_dir}} exists'
+      file:
+        path: '{{metricbeat_install_parent_dir}}'
+        state: directory
+        mode: '0755'
+    - name: unarchive...
+      shell: tar xvf /tmp/{{metricbeat_tgz}} -C {{metricbeat_install_parent_dir}}
+  always:
+    - name: delete archive...
+      file:
+        path: /tmp/{{metricbeat_tgz}}
+        state: absent
+
+- name: link...
+  file:
+    src: '{{metricbeat_install_dir}}'
+    dest: '{{metricbeat_install_link_dir}}'
+    state: link
+
+- name: 'ensure {{metricbeat_install_parent_dir}}/logs exists'
+  file:
+    path: '{{metricbeat_install_link_dir}}/logs'
+    state: directory
+    mode: '0755'
+
+- name : Copy metricbeat conf for jolokia
+  template:
+    src: 'templates/metricbeat.conf.j2'
+    dest: '{{babel_install_dir}}/conf/metricbeat.conf'
+    mode: '0755'
+  tags: metrics
+
+- name : Copy metricbeat script
+  template:
+    src: 'templates/start-metricbeat.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-metricbeat.sh'
+    mode: '0755'
+
+- name : Copy jolokia agent script
+  template:
+    src: 'templates/start-jolokia-agent.sh.j2'
+    dest: '{{babel_install_dir}}/bin/start-jolokia-agent.sh'
+    mode: '0755'
