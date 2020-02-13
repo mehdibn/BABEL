@@ -54,26 +54,9 @@
 <b>kafkatopic</b>       : kafka topic for metrics integration
 
 
-### Used Kafka Commands
-
-
-`/usr/local/bin/zookeeper-server-start /usr/local/etc/zookeeper/zoo.cfg > /tmp/zookeeper.out 2> /tmp/zookeeper.log &`
-
-`/usr/local/bin/kafka-server-start /usr/local/etc/kafka/server.properties > /tmp/kafka.out 2> /tmp/kafka.log &`
-
-`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --describe`
-
-`/usr/local/bin/kafka-topics --zookeeper localhost:2181 --create --topic babel --replication-factor 1 --partitions 1`
-
-`/usr/local/bin/kafka-console-consumer --bootstrap-server localhost:9092 --topic babel --from-beginning  --property print.key=true --property print.timestamp=true`
-
-`/usr/local/bin/kafka-console-producer --broker-list localhost:9092 --topic babel`
-
 
 ### babel Test Command
 
 `java -cp ./benchmark-data-generation/target/benchmark-data-generation-1.0-SNAPSHOT-jar-with-dependencies.jar:./benchmark-integration/target/benchmark-integration-1.0-SNAPSHOT-jar-with-dependencies.jar tn.lipsic.babel.Client -threads 3 -target 3 -s -P ./conf/babel.properties| grep -v user`
 
-### babel Test Command
 
-`log.message.timestamp.type -> CreateTime`
