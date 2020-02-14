@@ -1,4 +1,4 @@
-# babel Data Generator
+# BABEL Data Generator
 
 ## To build this project :
 
