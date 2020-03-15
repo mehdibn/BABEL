@@ -203,12 +203,12 @@ consumers_jolokia_embedded:
 
 6. install BABEL 
 
-`ansible-playbook install.ym`
+`ansible-playbook install.yml`
 
 7. init BABEL 
 
-`ansible-playbook init-balel-nodes.ym`
+`ansible-playbook init-balel-nodes.yml`
 
 8. install SUT 
 
-`ansible-playbook init-sut-nodes.ym`
+`ansible-playbook init-sut-nodes.yml`
