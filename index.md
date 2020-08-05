@@ -14,7 +14,7 @@ The main **features** of BABEL:
 - **Agility**: The platform should be flexible: during the different integration phases and also at run-time, new layers, metrics, and processing jobs can be added on the fly.
 
 # Benchmark Architecture
-
+<img src="benchmark-a.png" alt="hi" class="inline"/>
 ![alt text](benchmark-a.png)
 
 # Technical Architecture
