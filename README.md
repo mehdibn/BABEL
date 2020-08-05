@@ -5,6 +5,8 @@
 *Benchmark name is inspired from the myth of the Tower of BABEL, used to justify the origin of the presence of multiple spoken languages.*
 
 
+# Features 
+
 The main **features** of BABEL: 
 - **Genericity**: It should be technology-, application- and architecture-agnostic. 
 - **Dynamicity**: It should run in parallel with the system, without interfering with its behavior, and with negligible overhead.
