@@ -209,6 +209,6 @@ consumers_jolokia_embedded:
 
 `ansible-playbook init-balel-nodes.yml`
 
-8. install SUT 
+8. init SUT 
 
 `ansible-playbook init-sut-nodes.yml`
