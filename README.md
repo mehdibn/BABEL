@@ -124,6 +124,8 @@ sut-node-5
 
 5. Define the different BABEL and SUT parameters in the **group_vars/all** file, e.g :
 
+- BABEL Core properties
+
 ```
 # babel properties
 # OS System  : linux | darwin
@@ -156,8 +158,11 @@ logstash_install_parent_dir: '{{parent_dir}}/logstash/'
 #kibana
 embedded_kibana: true
 kibana_install_parent_dir: '{{parent_dir}}/kibana/'
+```
 
+- System Under Test Properties:
 
+```
 #SUT properties
 #Metricbeat
 metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
@@ -170,6 +175,11 @@ SUTHiveTablePath: "/tmp/spark-data"
 SUTCheckpointDir: "/tmp/spark-check"
 SUTSparkMode: "cluster"
 
+```
+
+- Producer(s) Properties
+
+```
 #Producer Properties
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
 threads: "5"
@@ -177,7 +187,12 @@ maxMessages: "1000000"
 SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
 SUTZookeeper: 'benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'
 SUTtopic : 'babel-m'
+```
 
+- Consumer(s) Properties
+
+
+```
 #Consumers properties
 consumers_jolokia_agent:
   - id: "1"
