@@ -89,6 +89,8 @@ http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.htm
 
 4. Configure the **inventory** with the different groups:
 
+- Benchmark Core Nodes
+
 ```
 [elasticsearch-nodes]
 elastic-node-1
@@ -113,6 +115,13 @@ kafka-node-3
 babel-node-1
 babel-node-2
 babel-node-3
+
+
+```
+
+- System Under Test Nodes
+
+```
 
 [sut]
 sut-node-1
