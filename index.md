@@ -15,8 +15,6 @@ The main **features** of BABEL:
 
 # Benchmark Architecture
 <img src="benchmark-a.png" alt="hi" class="inline"/>
-![alt text](benchmark-a.png)
 
 # Technical Architecture
-
-![alt text](benchmark-t.png)
+<img src="benchmark-t.png" alt="hi" class="inline"/>
