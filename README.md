@@ -1,7 +1,9 @@
 # BABEL
+
+**B**ig d**A**ta **BE**nchmarking p**L**atform,  generic tool, defined by a set of interconnected components that are destined to work for any Big Data architecture. 
+
 *Benchmark name is inspired from the myth of the Tower of BABEL, used to justify the origin of the presence of multiple spoken languages.*
 
-**BABEL** : **B**ig d**A**ta **BE**nchmarking p**L**atform,  generic tool, defined by a set of interconnected components that are destined to work for any Big Data architecture. 
 
 The main **features** of BABEL: 
 - **Genericity**: It should be technology-, application- and architecture-agnostic. 
