@@ -26,7 +26,7 @@ The main **features** of BABEL:
 1. Check if the default data generator, producers and consumers are enough for your needs, or develop your own adapters.
 2. Create your **inventory** describing the SUT and BABEL nodes (inventory example below).
 3. Specify the configuration and architecture parameters in the **group\_vars** files by defining : 
-  - **Workload**** : parallelism level, number of fields and records, etc.
+  - **Workload** : parallelism level, number of fields and records, etc.
   - **Data Generator**, **consumers** and **producers** configuration
   - **SUT environment** : servers addresses, number of layers, resources name like tables, topics, queues, etc.
   - **BABEL** installation parameters
