@@ -1,7 +1,6 @@
 # BABEL
 A Generic Benchmarking Platform for BigData Architectures
 
-![alt text](./doc/img/benchmark.png)
 
 # BABEL Installation 
 
