@@ -27,7 +27,7 @@ The main **features** of BABEL:
 
 # Getting Started with BABEL:
 
-1. Check if the default data generator, producers and consumers are enough for your needs, or develop your own adapters.
+1. Check if the default data generator, producers, consumers and Workloads are enough for your needs, or develop your own adapters by extending the following abstract classes: **Generator<V>**, **GenericProducer**, **GenericConsumer** and **Workload**.
 2. Create your **inventory** describing the SUT and BABEL nodes (inventory example below).
 3. Specify the configuration and architecture parameters in the **group\_vars** files by defining : 
   - **Workload** : parallelism level, number of fields and records, etc.
@@ -124,7 +124,7 @@ sut-node-5
 
 5. Define the different BABEL and SUT parameters in the **group_vars/all** file, e.g :
 
-- BABEL Core properties
+- Benchmark Core properties
 
 ```
 # babel properties
@@ -160,7 +160,7 @@ embedded_kibana: true
 kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 ```
 
-- System Under Test Properties:
+- System Under Test Properties
 
 ```
 #SUT properties
