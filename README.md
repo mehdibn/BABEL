@@ -10,12 +10,12 @@
 The main **features** of BABEL: 
 - **Genericity**: technology-, application- and architecture-agnostic. 
 - **Dynamicity**: runs in parallel with the system, without interfering with its behavior, and with negligible overhead.
-- **Adaptability**: It adapts to any number of layers in the Big Data application, as well as to any type of data and workloads.
+- **Adaptability**: adapts to any number of layers in the Big Data application, as well as to any type of data and workloads.
 - **Multi-Paradigm**: able to benchmark streaming and batch processing systems, as well as operational and decisional platforms.
 - **End-to-End Solution**: evaluates the behavior of the whole system, by measuring application- and system-level metrics.
 - **Real-time Reporting**: offers a real-time reporting layer, that illustrates the system's metrics on the fly.
 - **Distribution and Scalability**: configurable, and offer a  scalable collection, processing engines and  storage, in order to enable the continuous archiving of metrics for a better analysis.
-- **Agility**: The platform should be flexible: during the different integration phases and also at run-time, new layers, metrics, and processing jobs can be added on the fly.
+- **Agility**: flexible during the different integration phases and also at run-time, new layers, metrics, and processing jobs can be added on the fly.
 
 # Benchmark Architecture
 
