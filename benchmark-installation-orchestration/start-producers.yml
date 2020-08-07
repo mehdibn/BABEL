@@ -1,4 +1,4 @@
-- hosts: babel-nodes
+- hosts: producer-nodes
   tasks:
   - name: "Start Producers"
     shell: "( {{babel_install_dir}}/bin/start-babel-producer.sh )"

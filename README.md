@@ -96,6 +96,11 @@ babel-node-1
 babel-node-2
 babel-node-3
 
+[producer-nodes]
+node1
+node2
+node3
+
 
 ```
 

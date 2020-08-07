@@ -16,6 +16,9 @@ node1
 [babel-nodes]
 node1
 
+[producer-nodes]
+node1
+
 [sut]
 10.0.0.4
 10.0.0.5
