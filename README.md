@@ -271,3 +271,7 @@ consumers_jolokia_embedded:
 8. init SUT 
 
 `ansible-playbook init-sut-nodes.yml`
+
+# Dashboard Example
+
+![alt text](./doc/img/dash-examp.png)
