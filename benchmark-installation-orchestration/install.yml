@@ -37,7 +37,3 @@
 - hosts: all
   roles:
      - { role: babel.install}
-
-- hosts: sut
-  roles:
-     - { role: examples.lambda.install}

@@ -43,10 +43,11 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
 threads: "5"
 maxMessages: "1000000"
-SUTProperties: "SUTkafkabrokers={{ SUTkafkabrokers }} ; SUTtopic={{ SUTtopic }} ; SUTZookeeper= {{ SUTZookeeper }}"
+SUTProperties: "SUTkafkabrokers='benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667';SUTtopic='babel-m';SUTZookeeper='benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'"
 
 
 #Consumers properties
+SUTtopic : 'babel-m'
 consumers_jolokia_agent:
   - id: "1"
     layer: "layer1"
@@ -103,13 +104,3 @@ consumers_jolokia_embedded:
         field: "gc.psms_collection_time"
 
 
-#Only for lambda example implementation , don't use it for your own SUT
-SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
-SUTSPARKBIN: "/usr/hdp/current/spark2-client/bin"
-SUTKAFKAREP: "3"
-SUTHiveTablePath: "/tmp/spark-data"
-SUTCheckpointDir: "/tmp/spark-check"
-SUTSparkMode: "cluster"
-SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
-SUTZookeeper: 'benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'
-SUTtopic : 'babel-m'

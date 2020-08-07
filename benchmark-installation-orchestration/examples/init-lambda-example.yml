@@ -1,0 +1,11 @@
+
+- hosts: sut
+  roles:
+     - { role: examples.lambda.install}
+
+- hosts: sut-kafka-nodes[0]
+  tasks:
+  - name: "Create  Kafka Topics"
+    shell: "( {{babel_install_dir}}/bin/create-kafka-topics.sh )"
+    async: 10
+    poll: 10
