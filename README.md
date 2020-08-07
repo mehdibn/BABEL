@@ -168,9 +168,8 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 ```
 #Producer Properties
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
-producerProperties: '-threads {{ threads }} -target {{ maxMessages }}'
-threads: "5"
-maxMessages: "1000000"
+producerProperties: '-threads 5 -target 1000000'
+
 
 # Properties of this var can be loaded in your producer implementation via the getProperties() method of the GenericProducer Abstract Class 
 SUTProperties : 'SUTkafkabrokers=host1:port, host2:port, host3:port ; SUTtopic=kafkatopic ; SUTZookeeper=host1:port, host2:port, host3:port'
