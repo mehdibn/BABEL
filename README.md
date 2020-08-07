@@ -27,7 +27,7 @@ The main **features** of BABEL:
 
 # Getting Started with BABEL:
 
-1. Check if the default data generator, producers, consumers and Workloads are enough for your needs, or develop your own adapters by extending the following abstract classes: **Generator<V>**, **GenericProducer**, **GenericConsumer** and **Workload**.
+1. Check if the default data generator and Workloads are enough for your needs, or develop your own by extending the following abstract classes: **Generator<V>** and **Workload**.
 2. Create your **inventory** describing the SUT and BABEL nodes (inventory example below).
 3. Specify the configuration and architecture parameters in the **group\_vars** files by defining : 
   - **Workload** : parallelism level, number of fields and records, etc.
@@ -243,7 +243,7 @@ consumers_jolokia_embedded:
 
 ```
 
-6. install BABEL 
+6. from the benchmark-installation-orchestration module, install BABEL 
 
 `ansible-playbook install.yml`
 
