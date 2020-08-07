@@ -8,8 +8,9 @@ babel_install_parent_dir: '{{parent_dir}}/babel/'
 babel_install_dir: '{{babel_install_parent_dir}}/{{babel_name}}'
 babel_install_link_dir: '{{babel_install_parent_dir}}/babel'
 babel_name : 'babel-{{babel_ver}}'
+#change these properties if you want to use your own jars with specific producers and consumers
+#babel_mirror : https://github.com/mehdibn/babel/releases/download/
 babel_ver : '1.0-SNAPSHOT'
-
 
 
 #kafka

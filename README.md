@@ -35,7 +35,7 @@ The main **features** of BABEL:
   - **SUT environment** : servers addresses, number of layers, resources name like tables, topics, queues, etc.
   - **BABEL** installation parameters
 
-4.install and init the different benchmark components by using the existing Ansible playbooks that will use the defined variables. (as described in the installation section below)
+4.install and initialize the different benchmark components by using the existing Ansible playbooks that will use the defined variables. (as described in the installation section below)
 
 
 # Installation 
@@ -53,7 +53,7 @@ The main **features** of BABEL:
 
 http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
-2. Enable the Remote Session if you use MacOS for tests
+2. Enable Remote Sessions if you use MacOS for test
 
 3. Install JDK 1.8
 
@@ -129,8 +129,9 @@ babel_install_parent_dir: '{{parent_dir}}/babel/'
 babel_install_dir: '{{babel_install_parent_dir}}/{{babel_name}}'
 babel_install_link_dir: '{{babel_install_parent_dir}}/babel'
 babel_name : 'babel-{{babel_ver}}'
+#change these properties if you want to use your own jars with specific producers and consumers
+#babel_mirror : https://github.com/mehdibn/babel/releases/download/
 babel_ver : '1.0-SNAPSHOT'
-
 
 
 #kafka
@@ -166,7 +167,7 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 - Producer(s) Properties (with Kafka Example)
 
 ```
-#Producer Properties described in the README of the benchmark-data-generation module
+#Producer Properties described in the README of the     benchmark-data-generation module
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
 producerProperties: '-threads 5 -target 1000000'
 
@@ -246,11 +247,11 @@ consumers_jolokia_embedded:
 
 `ansible-playbook install.yml`
 
-7. init BABEL 
+7. initialize BABEL 
 
 `ansible-playbook init-balel-nodes.yml`
 
-8. init SUT 
+8. initialize SUT 
 
 `ansible-playbook init-sut-nodes.yml`
 
