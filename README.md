@@ -167,7 +167,7 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 - Producer(s) Properties (with Kafka Example)
 
 ```
-#Producer Properties described in the README of the     benchmark-data-generation module
+#Producer Properties described in the README of the benchmark-data-generation module
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
 producerProperties: '-threads 5 -target 1000000'
 
