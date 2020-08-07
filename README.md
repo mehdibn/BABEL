@@ -188,7 +188,7 @@ maxMessages: "1000000"
 SUTProperties : 'SUTkafkabrokers=host1:port, host2:port, host3:port ; SUTtopic=kafkatopic ; SUTZookeeper=host1:port, host2:port, host3:port'
 ```
 
-- Consumer(s) Agent Properties (with Examples)
+- Consumer Agent(s)  Properties (with Examples)
 
 
 ```
