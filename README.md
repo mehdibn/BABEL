@@ -176,14 +176,6 @@ kibana_install_parent_dir: '{{parent_dir}}/kibana/'
 #Metricbeat
 metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 
-#lambda
-SUTKAFKABIN: "/usr/hdp/current/kafka-broker/bin/"
-SUTSPARKBIN: "/usr/hdp/current/spark2-client/bin"
-SUTKAFKAREP: "3"
-SUTHiveTablePath: "/tmp/spark-data"
-SUTCheckpointDir: "/tmp/spark-check"
-SUTSparkMode: "cluster"
-
 ```
 
 - Producer(s) Properties
@@ -193,12 +185,10 @@ SUTSparkMode: "cluster"
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
 threads: "5"
 maxMessages: "1000000"
-SUTkafkabrokers : 'benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667'
-SUTZookeeper: 'benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'
-SUTtopic : 'babel-m'
+SUTProperties : 'SUTkafkabrokers=host1:port, host2:port, host3:port ; SUTtopic=kafkatopic ; SUTZookeeper=host1:port, host2:port, host3:port'
 ```
 
-- Consumer(s) Properties
+- Consumer(s) Agent Properties 
 
 
 ```
@@ -226,7 +216,12 @@ consumers_jolokia_agent:
       - mbean: "Hadoop:name=RpcActivityForPort8010,service=DataNode"
         attr: "RpcProcessingTimeAvgTime"
         field: "RpcProcessingTimeAvgTime"
+```
 
+- Embedded Consumer(s) Properties 
+
+
+```
 consumers_jolokia_embedded:
   - id: "2"
     layer: "layer2"
