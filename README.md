@@ -42,20 +42,19 @@ The main **features** of BABEL:
 
 ## Requirements 
 
- -  Java 1.8
+ -  JDK 1.8
  -  Ansible 
 
 ## Steps 
-### Ansible Deployment  
+### Ansible and JDK Deployment  
 
 
 1. Install **Ansible** :
 
 http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
-2. Active the Remove Session in your Mac Configuration
+2. Active the Remote Session if you use MacOS for tests
 
-`Préférences Système > Partage > Coche "Session à distance"`
 
 3. create your ssh public key :
 
@@ -69,13 +68,7 @@ http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.htm
 
 `ansible localhost -m ping`
 
-6. BABEL Installation, from BABEL/benchmark-installation-orchestration :
-
-`ansible-playbook ./install.yml`
-
-7. Start BABEL, from BABEL/benchmark-installation-orchestration :
-
-`ansible-playbook ./start.yml`
+6. Install JDK 1.8
 
 ### BABEL Deployment
 
