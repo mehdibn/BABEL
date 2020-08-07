@@ -151,14 +151,14 @@ babel_ver : '1.0-SNAPSHOT'
 #kafka
 embedded_kafka: true
 kafka_install_parent_dir: '{{parent_dir}}/kafka/'
-kafkabrokers : '10.0.0.8:9092'
-zookeeperquorum : '10.0.0.8:2181'
-kafkarep: "1"
+kafkabrokers : 'host1:port, host2:port, host3:port'
+zookeeperquorum : 'host1:port, host2:port, host3:port'
+kafkarep: "3"
 
 #elastic
 embedded_elasticsearch: true
 elasticsearch_install_parent_dir: '{{parent_dir}}/elasticsearch/'
-elastic_coordinator : '10.0.0.8:9200'
+elastic_coordinator : 'host1:port, host2:port, host3:port'
 
 #logstash
 embedded_logstash: true
@@ -178,7 +178,7 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 
 ```
 
-- Producer(s) Properties
+- Producer(s) Properties (with Kafka Example)
 
 ```
 #Producer Properties
@@ -188,7 +188,7 @@ maxMessages: "1000000"
 SUTProperties : 'SUTkafkabrokers=host1:port, host2:port, host3:port ; SUTtopic=kafkatopic ; SUTZookeeper=host1:port, host2:port, host3:port'
 ```
 
-- Consumer(s) Agent Properties 
+- Consumer(s) Agent Properties (with Examples)
 
 
 ```

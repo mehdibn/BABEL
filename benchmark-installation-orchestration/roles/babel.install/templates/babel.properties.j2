@@ -3,9 +3,15 @@ kafkabrokers={{ kafkabrokers }}
 kafkaproducertopic={{ kafkaproducertopic }}
 kafkaconsumertopic={{ kafkaconsumertopic }}
 
+
+# producer properties
 # SUT properties
-SUTtopic={{ SUTtopic }}
-SUTkafkabrokers={{ SUTkafkabrokers }}
+{% set list1 = SUTProperties.split(';') %}
+{% for item in list1 %}
+{{ item }}
+{% endfor %}
+
+# Lambda example properties
 SUTHiveTablePath= {{ SUTHiveTablePath }}
 SUTSparkMode= {{ SUTSparkMode }}
 SUTCheckpointDir = {{ SUTCheckpointDir }}
