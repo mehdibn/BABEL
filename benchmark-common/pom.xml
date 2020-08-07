@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>tn.lipsic</groupId>
-    <artifactId>benchmark-core</artifactId>
+    <artifactId>benchmark-common</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>benchmark-core</name>
+    <name>benchmark-common</name>
 
 
     <properties>
