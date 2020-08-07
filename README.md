@@ -53,22 +53,9 @@ The main **features** of BABEL:
 
 http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html
 
-2. Active the Remote Session if you use MacOS for tests
+2. Enable the Remote Session if you use MacOS for tests
 
-
-3. create your ssh public key :
-
-`ssh-keygen`
-
-4. add your public Key to your Host 
-
-`ssh-copy-id localhost`
-
-5. test Ansible Installation 
-
-`ansible localhost -m ping`
-
-6. Install JDK 1.8
+3. Install JDK 1.8
 
 ### BABEL Deployment
 
