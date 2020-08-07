@@ -163,6 +163,7 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 ```
 #Producer Properties
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
+producerProperties: '-threads {{ threads }} -target {{ maxMessages }}'
 threads: "5"
 maxMessages: "1000000"
 
@@ -248,6 +249,10 @@ consumers_jolokia_embedded:
 8. init SUT 
 
 `ansible-playbook init-sut-nodes.yml`
+
+9. start Producers 
+
+`ansible-playbook start-producers.yml`
 
 # Dashboard Example
 

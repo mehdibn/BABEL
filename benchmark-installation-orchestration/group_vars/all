@@ -41,10 +41,10 @@ metricbeat_install_parent_dir: '{{parent_dir}}/metricbeat/'
 
 #Producer Properties
 producer: 'tn.lipsic.integration.producers.KafkaProducer'
+producerProperties: '-threads {{ threads }} -target {{ maxMessages }}'
+SUTProperties: "SUTkafkabrokers='benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667';SUTtopic='babel-m';SUTZookeeper='benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'"
 threads: "5"
 maxMessages: "1000000"
-SUTProperties: "SUTkafkabrokers='benchmark2-w1.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w0.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667,benchmark2-w2.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:6667';SUTtopic='babel-m';SUTZookeeper='benchmark2-m3.l0hv1yccohxuzhmf13izu2rvog.fx.internal.cloudapp.net:2181'"
-
 
 #Consumers properties
 SUTtopic : 'babel-m'

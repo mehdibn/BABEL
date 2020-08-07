@@ -1,0 +1,8 @@
+- hosts: babel-nodes
+  tasks:
+  - name: "Start Producers"
+    shell: "( {{babel_install_dir}}/bin/start-babel-producer.sh )"
+    async: 10
+    poll: 10
+    ignore_errors: yes
+    tags: producers
